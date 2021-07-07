@@ -14,7 +14,7 @@ This lecture covers pair programming, test-driven development and basic IntelliJ
 
 ### Lecture 2: Programming tools
 
-This lecture covers Maven and Github Actions
+This lecture covers Maven, Github Actions and Github Issues
 
 ### Lecture 3: Socket clients
 
@@ -44,11 +44,13 @@ This lecture covers the Data Access Object pattern and how to abstract your data
 
 This lecture covers how to structure the code on your server
 
-### Lecture 10: The programming industry
+### Lecture 10: Programmer productivity
+
+This lecture reviews how to work effectively with IntelliJ, Github and Maven
+
+### Lecture 11: The programming industry
 
 This guest lecture covers how it is to work as a programmer in the Norwegian IT industry
-
-### Lecture 11: To-be-decided
 
 ### Lecture 12: Getting ready for the exam
 
