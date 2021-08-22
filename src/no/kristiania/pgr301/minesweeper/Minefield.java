@@ -24,6 +24,14 @@ public class Minefield {
                         neighbourMines = 1;
                     } else if (hasMine(row + 1, col)) {
                         neighbourMines = 1;
+                    } else if (hasMine(row - 1, col - 1)) {
+                        neighbourMines = 1;
+                    } else if (hasMine(row - 1, col + 1)) {
+                        neighbourMines = 1;
+                    } else if (hasMine(row + 1, col - 1)) {
+                        neighbourMines = 1;
+                    } else if (hasMine(row + 1, col + 1)) {
+                        neighbourMines = 1;
                     }
                     line.append(neighbourMines);
                 }
