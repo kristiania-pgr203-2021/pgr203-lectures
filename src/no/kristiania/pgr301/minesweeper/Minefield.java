@@ -9,17 +9,21 @@ public class Minefield {
 
     public String[] getHints() {
         String[] result = new String[input.length];
-        for (int i = 0, inputLength = input.length; i < inputLength; i++) {
+        for (int row = 0, inputLength = input.length; row < inputLength; row++) {
             StringBuilder line = new StringBuilder();
-            for (int j = 0; j < input[i].length(); j++) {
-                if (input[i].charAt(j) == '*') {
+            for (int col = 0; col < input[row].length(); col++) {
+                if (hasMine(row, col)) {
                     line.append("*");
                 } else {
                     line.append("0");
                 }
             }
-            result[i] = line.toString();
+            result[row] = line.toString();
         }
         return result;
+    }
+
+    private boolean hasMine(int row, int col) {
+        return input[row].charAt(col) == '*';
     }
 }
