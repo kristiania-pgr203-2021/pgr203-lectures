@@ -5,6 +5,6 @@ public class Minefield {
     }
 
     public String[] getHints() {
-        return new String[0];
+        return new String[] { "0" };
     }
 }
