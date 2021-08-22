@@ -14,8 +14,8 @@ public class MinefieldTest {
     @Test
     void hintsShouldReflectInputBoardSize() {
         assertArrayEquals(
-                new String[]{ "0", "0", "0" },
-                new Minefield(new String[]{ ".", ".", "." }).getHints()
+                new String[]{ "00", "00", "00" },
+                new Minefield(new String[]{ "..", "..", ".." }).getHints()
         );
     }
     
