@@ -12,8 +12,7 @@ public class Minefield {
         for (int row = 0, inputLength = input.length; row < inputLength; row++) {
             StringBuilder line = new StringBuilder();
             for (int col = 0; col < input[row].length(); col++) {
-                String cellValue = calculateCellValue(row, col);
-                line.append(cellValue);
+                line.append(calculateCellValue(row, col));
             }
             result[row] = line.toString();
         }
@@ -21,9 +20,8 @@ public class Minefield {
     }
 
     private String calculateCellValue(int row, int col) {
-        String cellValue;
         if (hasMine(row, col)) {
-            cellValue = "*";
+            return "*";
         } else {
             int neighbourMines = 0;
             for (int r = row -1; r <= row +1; r++) {
@@ -33,9 +31,8 @@ public class Minefield {
                     }
                 }
             }
-            cellValue = String.valueOf(neighbourMines);
+            return String.valueOf(neighbourMines);
         }
-        return cellValue;
     }
 
     private boolean hasMine(int row, int col) {
