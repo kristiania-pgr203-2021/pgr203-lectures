@@ -1,5 +1,9 @@
 package no.kristiania.pgr301.minesweeper;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class MinefieldTest {
     
     @Test
