@@ -15,9 +15,9 @@ public class Minefield {
                 if (hasMine(row, col)) {
                     line.append("*");
                 } else if (hasMine(row, col+1)) {
-                    line.append("1");
+                    line.append(1);
                 } else {
-                    line.append("0");
+                    line.append(0);
                 }
             }
             result[row] = line.toString();
