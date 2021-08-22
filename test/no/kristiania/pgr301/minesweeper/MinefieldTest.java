@@ -2,7 +2,7 @@ package no.kristiania.pgr301.minesweeper;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class MinefieldTest {
     
@@ -10,7 +10,7 @@ public class MinefieldTest {
     void shouldShowsEmptyMinefield() {
         String[] input = { "." };
         String[] expected = { "0" };
-        assertEquals(expected, new Minefield(input).getHints());
+        assertArrayEquals(expected, new Minefield(input).getHints());
     }
     
 }
