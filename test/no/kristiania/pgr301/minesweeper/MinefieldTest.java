@@ -34,5 +34,13 @@ public class MinefieldTest {
                 new Minefield(new String[]{ "..*.." }).getHints()
         );
     }
+
+    @Test
+    void shouldDisplayHintOnSameColumnAsMine() {
+        assertArrayEquals(
+                new String[]{ "0", "1", "*", "1", "0" },
+                new Minefield(new String[]{ ".", ".", "*", ".", "." }).getHints()
+        );
+    }
     
 }
