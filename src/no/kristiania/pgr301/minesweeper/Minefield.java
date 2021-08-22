@@ -16,6 +16,14 @@ public class Minefield {
                     line.append("*");
                 } else {
                     int neighbourMines = 0;
+                    for (int r = row-1; r < row+1; r++) {
+                        for (int c = col-1; c < col+1; c++) {
+                            if (hasMine(row, col-1)) {
+                                neighbourMines = 1;
+                            }
+                        }
+                    }
+                    
                     if (hasMine(row, col-1)) {
                         neighbourMines = 1;
                     } else if (hasMine(row, col+1)) {
