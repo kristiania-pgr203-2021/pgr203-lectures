@@ -39,4 +39,4 @@ During this lecture, we will demonstrate pair programming and test driven develo
 * [x] 1x5 minefield with a mine in the middle
 * [x] 3x3 minefield with a mine in the middle
 * [x] 3x3 minefield with some mines
-* [ ] A complete example
+* [x] A complete example
