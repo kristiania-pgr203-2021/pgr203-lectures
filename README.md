@@ -12,6 +12,10 @@ Read the [course companion materials](ADVANCED_JAVA.md)
 
 This lecture covers pair programming, test-driven development and basic IntelliJ and Git usage.
 
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/01) 
+* [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/1)
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lectures/01)
+
 ### Lecture 2: Programming tools
 
 This lecture covers Maven, Github Actions and Github Issues
