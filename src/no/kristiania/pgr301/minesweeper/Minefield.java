@@ -10,11 +10,11 @@ public class Minefield {
     public String[] getHints() {
         String[] result = new String[input.length];
         for (int i = 0, inputLength = input.length; i < inputLength; i++) {
-            String line = "";
+            StringBuilder line = new StringBuilder();
             for (int j = 0; j < input[i].length(); j++) {
-                line += "0";
+                line.append("0");
             }
-            result[i] = line;
+            result[i] = line.toString();
         }
         return result;
     }
