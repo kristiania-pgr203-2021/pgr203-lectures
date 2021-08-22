@@ -42,5 +42,13 @@ public class MinefieldTest {
                 new Minefield(new String[]{ ".", ".", "*", ".", "." }).getHints()
         );
     }
+
+    @Test
+    void shouldDisplayHintAroundMine() {
+        assertArrayEquals(
+                new String[]{ "111", "1*1", "111" },
+                new Minefield(new String[]{ "...", ".*.", "..." }).getHints()
+        );
+    }
     
 }
