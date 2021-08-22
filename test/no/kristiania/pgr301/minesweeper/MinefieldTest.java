@@ -8,9 +8,7 @@ public class MinefieldTest {
     
     @Test
     void shouldShowsEmptyMinefield() {
-        String[] input = { "." };
-        String[] expected = { "0" };
-        assertArrayEquals(expected, new Minefield(input).getHints());
+        assertArrayEquals(new String[]{ "0" }, new Minefield(new String[]{ "." }).getHints());
     }
     
 }
