@@ -15,7 +15,7 @@ public class Minefield {
                 if (hasMine(row, col)) {
                     line.append("*");
                 } else {
-                    int neighbourMines;
+                    int neighbourMines = 0;
                     if (hasMine(row, col-1)) {
                         neighbourMines = 1;
                     } else if (hasMine(row, col+1)) {
@@ -24,8 +24,6 @@ public class Minefield {
                         neighbourMines = 1;
                     } else if (hasMine(row + 1, col)) {
                         neighbourMines = 1;
-                    } else {
-                        neighbourMines = 0;
                     }
                     line.append(neighbourMines);
                 }
