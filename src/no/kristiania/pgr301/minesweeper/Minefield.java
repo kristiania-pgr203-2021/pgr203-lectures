@@ -20,6 +20,10 @@ public class Minefield {
                         neighbourMines = 1;
                     } else if (hasMine(row, col+1)) {
                         neighbourMines = 1;
+                    } else if (hasMine(row - 1, col)) {
+                        neighbourMines = 1;
+                    } else if (hasMine(row + 1, col)) {
+                        neighbourMines = 1;
                     } else {
                         neighbourMines = 0;
                     }
@@ -32,6 +36,9 @@ public class Minefield {
     }
 
     private boolean hasMine(int row, int col) {
+        if (row < 0 || input.length <= row) {
+            return false;
+        }
         if (col < 0 || input[row].length() <= col) {
             return false;
         }
