@@ -19,4 +19,12 @@ public class MinefieldTest {
         );
     }
     
+    @Test
+    void shouldDisplayMines() {
+        assertArrayEquals(
+                new String[]{ "****", "****" },
+                new Minefield(new String[]{ "****", "****" }).getHints()
+        );
+    }
+    
 }
