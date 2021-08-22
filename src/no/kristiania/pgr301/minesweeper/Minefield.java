@@ -14,6 +14,8 @@ public class Minefield {
             for (int col = 0; col < input[row].length(); col++) {
                 if (hasMine(row, col)) {
                     line.append("*");
+                } else if (hasMine(row, col-1)) {
+                    line.append(1);
                 } else if (hasMine(row, col+1)) {
                     line.append(1);
                 } else {
@@ -26,6 +28,6 @@ public class Minefield {
     }
 
     private boolean hasMine(int row, int col) {
-        return col < input[row].length() && input[row].charAt(col) == '*';
+        return 0 <= col && col < input[row].length() && input[row].charAt(col) == '*';
     }
 }
