@@ -42,6 +42,13 @@ public class MinefieldTest {
         String[] expected = { "01*10" };
         assertArrayEquals(expected, new Minesweeper(field).getHints());
     }
+
+    @Test
+    void shouldShowHintOnSameColumnAsMine() {
+        String[] field = { ".",".","*",".","."};
+        String[] expected = { "0","1","*","1","0" };
+        assertArrayEquals(expected, new Minesweeper(field).getHints());
+    }
     
     
     
