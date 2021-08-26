@@ -10,7 +10,11 @@ public class Minesweeper {
     public String[] getHints() {
         String[] hints = new String[field.length];
         for (int i = 0; i < field.length; i++) {
-            hints[i] = "0";
+            String rowHint = "";
+            for (int j = 0; j < this.field[i].length(); j++) {
+                rowHint += "0";
+            }
+            hints[i] = rowHint;
         }
         return hints;
     }
