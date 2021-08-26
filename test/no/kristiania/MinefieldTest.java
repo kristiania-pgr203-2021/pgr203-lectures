@@ -22,4 +22,12 @@ public class MinefieldTest {
     }
     
     
+    @Test
+    void shouldShowWideMinefields() {
+        String[] field = { "....", "....", "...."};
+        String[] expected = { "0000", "0000", "0000"};
+        assertArrayEquals(new Minesweeper(field).getHints(), expected);
+    }
+    
+    
 }
