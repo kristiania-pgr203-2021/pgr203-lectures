@@ -23,7 +23,7 @@ public class Minesweeper {
         return hints;
     }
 
-    private boolean hasMine(int i, int j) {
-        return this.field[i].charAt(j) == '*';
+    private boolean hasMine(int row, int column) {
+        return this.field[row].charAt(column) == '*';
     }
 }
