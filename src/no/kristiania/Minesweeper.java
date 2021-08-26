@@ -12,7 +12,7 @@ public class Minesweeper {
         for (int i = 0; i < field.length; i++) {
             String rowHint = "";
             for (int j = 0; j < this.field[i].length(); j++) {
-                if (this.field[i].charAt(j) == '*') {
+                if (hasMine(i, j)) {
                     rowHint += "*";
                 } else {
                     rowHint += "0";
@@ -21,5 +21,9 @@ public class Minesweeper {
             hints[i] = rowHint;
         }
         return hints;
+    }
+
+    private boolean hasMine(int i, int j) {
+        return this.field[i].charAt(j) == '*';
     }
 }
