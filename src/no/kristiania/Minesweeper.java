@@ -14,7 +14,10 @@ public class Minesweeper {
             for (int j = 0; j < this.field[i].length(); j++) {
                 if (hasMine(i, j)) {
                     rowHint += "*";
-                } else {
+                } else if(hasMine(i, j+1)){
+                    rowHint += "1";
+                } 
+                else {
                     rowHint += "0";
                 }
             }
@@ -24,6 +27,9 @@ public class Minesweeper {
     }
 
     private boolean hasMine(int row, int column) {
+        if(this.field[row].length() <= column){
+            return false;
+        }
         return this.field[row].charAt(column) == '*';
     }
 }

@@ -37,9 +37,9 @@ public class MinefieldTest {
     }
 
     @Test
-    void shouldShowHintLeftOfMine() {
-        String[] field = { ".*"};
-        String[] expected = { "1*" };
+    void shouldShowHintOnSameRowAsMine() {
+        String[] field = { "..*.."};
+        String[] expected = { "01*10" };
         assertArrayEquals(expected, new Minesweeper(field).getHints());
     }
     
