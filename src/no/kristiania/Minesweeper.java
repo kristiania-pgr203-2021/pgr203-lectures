@@ -8,10 +8,10 @@ public class Minesweeper {
     }
 
     public String[] getHints() {
-        String[] expected = new String[field.length];
+        String[] hints = new String[field.length];
         for (int i = 0; i < field.length; i++) {
-            expected[i] = "0";
+            hints[i] = "0";
         }
-        return expected;
+        return hints;
     }
 }
