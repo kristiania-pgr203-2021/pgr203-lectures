@@ -3,15 +3,17 @@ package no.kristiania;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MinefieldTest {
+class MinefieldTest {
     
     @Test
     void shouldEmptyField() {
         String[] field = { "." };
         String[] expected = { "0" };
-        assertArrayEquals(expected, new Minesweeper(field).getHints());
+        assertArrayEquals(
+                expected,
+                new Minesweeper(field).getHints()
+        );
     }
 
     @Test
@@ -51,6 +53,22 @@ public class MinefieldTest {
     }
     
     
+    @Test
+    void shouldShowHints() {
+        String[] field = {
+                ".**..",
+                "..*..",
+                ".**..",
+                "...**",
+        };
+        String[] hint = {
+                "1**20",
+                "25*30",
+                "1**32",
+                "123**",
+        };
+        
+    }
     
     
     

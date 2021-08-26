@@ -9,28 +9,32 @@ public class Minesweeper {
 
     public String[] getHints() {
         String[] hints = new String[field.length];
-        for (int i = 0; i < field.length; i++) {
+        for (int row = 0; row < field.length; row++) {
             String rowHint = "";
-            for (int j = 0; j < this.field[i].length(); j++) {
-                if (hasMine(i, j)) {
+            for (int column = 0; column < this.field[row].length(); column++) {
+                if (hasMine(row, column)) {
                     rowHint += "*";
                 } else {
-                    int neighbourMines = 0;
-                    if (hasMine(i, j - 1)) {
-                        neighbourMines = 1;
-                    } else if (hasMine(i, j + 1)) {
-                        neighbourMines = 1;
-                    } else if (hasMine(i-1, j)) {
-                        neighbourMines = 1;
-                    } else if (hasMine(i + 1, j)) {
-                        neighbourMines = 1;
-                    }
-                    rowHint += neighbourMines;
+                    rowHint += countNeighbourMines(row, column);
                 }
             }
-            hints[i] = rowHint;
+            hints[row] = rowHint;
         }
         return hints;
+    }
+
+    private int countNeighbourMines(int i, int j) {
+        int neighbourMines = 0;
+        if (hasMine(i, j - 1)) {
+            neighbourMines = 1;
+        } else if (hasMine(i, j + 1)) {
+            neighbourMines = 1;
+        } else if (hasMine(i -1, j)) {
+            neighbourMines = 1;
+        } else if (hasMine(i + 1, j)) {
+            neighbourMines = 1;
+        }
+        return neighbourMines;
     }
 
     private boolean hasMine(int row, int column) {
