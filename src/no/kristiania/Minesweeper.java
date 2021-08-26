@@ -20,6 +20,10 @@ public class Minesweeper {
                         neighbourMines = 1;
                     } else if (hasMine(i, j + 1)) {
                         neighbourMines = 1;
+                    } else if (hasMine(i-1, j)) {
+                        neighbourMines = 1;
+                    } else if (hasMine(i + 1, j)) {
+                        neighbourMines = 1;
                     }
                     rowHint += neighbourMines;
                 }
@@ -30,9 +34,14 @@ public class Minesweeper {
     }
 
     private boolean hasMine(int row, int column) {
+        if (row < 0 || this.field.length <= row) {
+            return false;
+        }
+        
         if (column < 0 || this.field[row].length() <= column) {
             return false;
         }
+        
         return this.field[row].charAt(column) == '*';
     }
 }
