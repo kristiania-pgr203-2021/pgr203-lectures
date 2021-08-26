@@ -35,6 +35,15 @@ public class MinefieldTest {
         String[] expected = { "****", "****", "****"};
         assertArrayEquals(expected, new Minesweeper(field).getHints());
     }
+
+    @Test
+    void shouldShowHintLeftOfMine() {
+        String[] field = { ".*"};
+        String[] expected = { "1*" };
+        assertArrayEquals(expected, new Minesweeper(field).getHints());
+    }
+    
+    
     
     
     
