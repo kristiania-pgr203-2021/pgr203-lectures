@@ -136,7 +136,7 @@ public class QueryString {
 ```
 
 
-## JUnit test
+### JUnit test
 
 ```java
 package no.kristiania.http;
