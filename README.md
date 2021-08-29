@@ -20,6 +20,10 @@ This lecture covers pair programming, test-driven development and basic IntelliJ
 
 This lecture covers Maven, Github Actions and Github Issues
 
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-2021-1-jhannes) - Johannes and Tien remote pair programming
+* [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/2)
+* Commit log from live coding (coming)
+
 ### Lecture 3: Socket clients
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html)
