@@ -31,7 +31,43 @@ This summary shows all the essential knowledge you should master at the end of t
   * What happens when you program tired
   * Giving and receiving feedback
 
-## Basic Java Syntax
+## Java Syntax
+
+### A minimal Java Program
+
+```java
+// It's good practice for all your Java classes to live in a `package`.
+// This means that the "full name" of this class is "no.kristiania.HelloThere"
+package no.kristiania;
+
+// Import: Makes `Scanner` as an alias for `java.util.Scanner`
+import java.util.Scanner;
+
+public class HelloThere {
+
+  // A method with the name `main` that is "public static void" is a program entry-point
+  public static void main(String[] args) {
+    // A local variable named Scanner
+    //  This will be used to read input from the user
+    Scanner scanner = new Scanner(System.in);
+
+    // Write output to the user
+    System.out.println("What is your name?");
+    // Read a response from the user
+    String name = scanner.nextLine();
+
+    System.out.println("What is your age?");
+    // Read a number from the user
+    int age = scanner.nextInt();
+
+    // Format and print out a response to the user
+    System.out.printf("Hello %s, you are %d years old\n", name, age);
+  }
+}
+```
+
+
+### A bit more complex
 
 ```java
 // It's good practice for all your Java classes to live in a `package`.
@@ -596,6 +632,18 @@ These are some of the most versatile keyboard shortcuts in IntelliJ. There are m
 | shift, shift          | shift, shift     | Search anywhere                    |
 
 Make yourself familiar with `Refactor this` (ctrl-alt-shift-t / ctrl-t) and use it to learn the shortcut keys for your favorite refactorings like Extract method, Rename and Inline.
+
+### IntelliJ Live Templates
+
+Less used than the shortcuts, these shorthand ways of writing common bits of Java code can save a bit of time. Write the name of the code template in the right spot and press Tab to have IntelliJ expand it
+
+
+| Template    | Result                           |
+|-------------|-----------------------------------|
+| `fori`      | `for (int i=0; i<...; i++) {}` |
+| `main`      | `public static void main(String[] args) {` |
+| `sout`      | `System.out.println();` |
+
 
 ### Git commands
 
