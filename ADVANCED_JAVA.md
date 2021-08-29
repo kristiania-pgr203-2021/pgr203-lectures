@@ -694,6 +694,55 @@ Make yourself familiar with `Refactor this` (ctrl-alt-shift-t / ctrl-t) and use 
 * `maven-surefire-plugin`: Used to run tests. (Needed for JUnit 5, but not JUnit 4)
 * `maven-shade-plugin`: Used to make the jar-file executable with `java -jar <jarfile>`
 
+### GitHub Actions
+
+Example of file checked in as `.github/workflows/maven.yml`
+
+```yaml
+name: Java CI with Maven
+
+# When the workflow should be run. In this case, whenever someone
+#  pushes code on the main-branch or creates a pull request to the
+#  main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    # standard - specifies what operating system should run the Action
+    runs-on: ubuntu-latest
+    
+    # IMPORTANT: Timeout if your build hangs. If you fail to add this
+    #  you can impact the rest of the class, as we share "build minutes"
+    #  on Github
+    timeout-minutes: 5
+
+    # How should we build?
+    steps:
+    # First - check out the code
+    - uses: actions/checkout@v2
+    # Then, make sure Java is available
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    # Then, build with maven (but continue if the build fails)
+    - name: Build with Maven
+      run: mvn test --batch-mode -Dmaven.test.failure.ignore=true
+    # The publish the report from the test
+    - name: Publish Test Report
+      uses: scacap/action-surefire-report@v1
+      with:
+        # This authenticates the build step (scacap/action-surefire-report) with your GitHub account
+        # So it can publish the test report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+
 ## Some words I assume you know:
 
 * variable
