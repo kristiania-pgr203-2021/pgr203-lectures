@@ -6,8 +6,23 @@ import java.net.Socket;
 
 public class HttpClient {
 
-    public HttpClient(String host, int port, String requestTarget) {
+    private final int statusCode;
+
+    public HttpClient(String host, int port, String requestTarget) throws IOException {
+        Socket socket = new Socket(host, port);
+        socket.getOutputStream().write(("GET " + requestTarget + " HTTP/1.1\r\nHost: " + host + "\r\n\r\n").getBytes());
         
+        String[] statusLine = readLine(socket.getInputStream()).split(" ");
+        statusCode = Integer.parseInt(statusLine[1]);
+    }
+
+    private String readLine(InputStream in) throws IOException {
+        StringBuilder result = new StringBuilder();
+        int c;
+        while ((c = in.read()) != -1 && c != '\r') {
+            result.append((char)c);
+        }
+        return result.toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -22,6 +37,6 @@ public class HttpClient {
     }
 
     public int getStatusCode() {
-        return 200;
+        return statusCode;
     }
 }
