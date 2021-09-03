@@ -28,6 +28,11 @@ This lecture covers Maven, Github Actions and Github Issues
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html)
 
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/tree/reference/03) 
+* [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/3)
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lectures/03)
+
+
 ### Lecture 4: HTTP server
 
 This lecture covers `java.net.ServerSocket` and explores HTTP headers
