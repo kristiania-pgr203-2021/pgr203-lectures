@@ -16,6 +16,12 @@ public class HttpClient {
         
         String[] statusLine = readLine(socket.getInputStream()).split(" ");
         statusCode = Integer.parseInt(statusLine[1]);
+        
+        String headerField;
+        while (!(headerField = readLine(socket.getInputStream())).isBlank()) {
+            int colonPos = headerField.indexOf(':');
+            headerFields.put(headerField.substring(0, colonPos), headerField.substring(colonPos+1).trim());
+        }
     }
 
     private String readLine(InputStream in) throws IOException {
@@ -23,6 +29,9 @@ public class HttpClient {
         int c;
         while ((c = in.read()) != -1 && c != '\r') {
             result.append((char)c);
+        }
+        if (c == '\r') {
+            in.read();
         }
         return result.toString();
     }
@@ -44,5 +53,9 @@ public class HttpClient {
 
     public String getHeader(String fieldName) {
         return headerFields.get(fieldName);
+    }
+
+    public int getContentLength() {
+        return 0;
     }
 }
