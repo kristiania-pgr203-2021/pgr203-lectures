@@ -3,10 +3,12 @@ package no.kristiania.http;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class HttpClient {
 
     private final int statusCode;
+    private final HashMap<String, String> headerFields = new HashMap<>();
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
@@ -38,5 +40,9 @@ public class HttpClient {
 
     public int getStatusCode() {
         return statusCode;
+    }
+
+    public String getHeader(String fieldName) {
+        return headerFields.get(fieldName);
     }
 }
