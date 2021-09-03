@@ -9,6 +9,7 @@ public class HttpClient {
 
     private final int statusCode;
     private final HashMap<String, String> headerFields = new HashMap<>();
+    private String messageBody;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
@@ -22,6 +23,15 @@ public class HttpClient {
             int colonPos = headerField.indexOf(':');
             headerFields.put(headerField.substring(0, colonPos), headerField.substring(colonPos+1).trim());
         }
+        this.messageBody = readBytes(socket.getInputStream(), getContentLength());
+    }
+
+    private String readBytes(InputStream in, int contentLength) throws IOException {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < contentLength; i++) {
+            result.append((char)in.read());
+        }
+        return result.toString();
     }
 
     private String readLine(InputStream in) throws IOException {
@@ -57,5 +67,9 @@ public class HttpClient {
         while ((c = in.read()) != -1) {
             System.out.print((char)c);
         }
+    }
+
+    public String getMessageBody() {
+        return messageBody;
     }
 }
