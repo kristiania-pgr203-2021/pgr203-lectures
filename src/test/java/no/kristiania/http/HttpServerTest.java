@@ -41,5 +41,15 @@ class HttpServerTest {
         server.setRoot(Paths.get("target/test-classes"));
         HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.txt");
         assertEquals(fileContent, client.getMessageBody());
+        assertEquals("text/plain", client.getHeader("Content-Type"));
+    }
+
+    @Test
+    void shouldRespondWithContentType() throws IOException {
+        String fileContent = "<h2>Welcome</h2>";
+        Files.write(Paths.get("target/test-classes/example-file.html"), fileContent.getBytes());
+        server.setRoot(Paths.get("target/test-classes"));
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.html");
+        assertEquals("text/html", client.getHeader("Content-Type"));
     }
 }
