@@ -6,14 +6,14 @@
 
 * [x] Maven
 * [x] Github Actions
-* [ ] Working-branch
+* [x] Working-branch
 * [ ] Pull request
 
 ## Repeat of lecture 3
 
-* [ ] Browser communicates with server
-* [ ] RFC 7230
-* [ ] HttpClient should read status code
+* [x] Browser communicates with server
+* [x] RFC 7230
+* [x] HttpClient should read status code
 * [ ] HttpClient should read header fields
 * [ ] HttpClient should read content length
 * [ ] HttpClient should read message body
