@@ -1,3 +1,5 @@
+[![.github/workflows/maven.yml](https://github.com/kristiania-pgr203-2021/pgr203-lectures/actions/workflows/maven.yml/badge.svg?branch=reference%2F04)](https://github.com/kristiania-pgr203-2021/pgr203-lectures/actions/workflows/maven.yml)
+
 # Lecture 4: HTTP server
 
 ## Repeat of lecture 2
