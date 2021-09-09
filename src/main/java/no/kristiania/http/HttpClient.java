@@ -20,35 +20,16 @@ public class HttpClient {
         
         socket.getOutputStream().write(clientRequest.getBytes());
         
-        String statusLine = readLine(socket);
+        String statusLine = HttpMessage.readLine(socket);
         this.statusCode = Integer.parseInt(statusLine.split(" ")[1]);
         String headerLine;
-        while (!(headerLine = readLine(socket)).isBlank()) {
+        while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
             int colonPos = headerLine.indexOf(':');
             String headerName = headerLine.substring(0, colonPos);
             String headerValue = headerLine.substring(colonPos+1).trim();
             headerFields.put(headerName, headerValue);
         }
-        messageBody = readBytes(socket, getContentLength());
-    }
-
-    private String readBytes(Socket socket, int contentLength) throws IOException {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < contentLength; i++) {
-            result.append((char)socket.getInputStream().read());
-        }
-        return result.toString();
-    }
-
-    public static String readLine(Socket socket) throws IOException {
-        StringBuilder result = new StringBuilder();
-        int c;
-        while ((c = socket.getInputStream().read()) != '\r') {
-            result.append((char)c);
-        }
-        int expectedNewLine = socket.getInputStream().read();
-        assert expectedNewLine == '\n';
-        return result.toString();
+        messageBody = HttpMessage.readBytes(socket, getContentLength());
     }
 
     public int getStatusCode() {
