@@ -19,6 +19,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --fail-at-end
       - name: Publish Test Report
+        if: ${{ aways() }}
         run: scacap/action-surefire-report@v1
 
           
