@@ -2,6 +2,8 @@
 
 # Lecture 4: HTTP server
 
+![Anatomy of a web request](https://pbs.twimg.com/media/D-Ulct8XUAAXdcs?format=jpg&name=large)
+
 ## Repeat of lecture 2
 
 * [x] Maven
