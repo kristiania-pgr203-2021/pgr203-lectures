@@ -25,7 +25,7 @@ public class HttpClient {
         while (!(headerLine = readLine(socket)).isBlank()) {
             int colonPos = headerLine.indexOf(':');
             String headerName = headerLine.substring(0, colonPos);
-            String headerValue = headerLine.substring(colonPos+1);
+            String headerValue = headerLine.substring(colonPos+1).trim();
             headerFields.put(headerName, headerValue);
         }
     }
@@ -36,6 +36,7 @@ public class HttpClient {
         while ((c = socket.getInputStream().read()) != '\r') {
             result.append((char)c);
         }
+        socket.getInputStream().read();
         return result.toString();
     }
 
@@ -45,5 +46,9 @@ public class HttpClient {
 
     public String getHeader(String fieldName) {
         return headerFields.get(fieldName);
+    }
+
+    public int getContentLength() {
+        return 0;
     }
 }

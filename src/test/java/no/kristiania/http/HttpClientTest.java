@@ -16,6 +16,12 @@ public class HttpClientTest {
     @Test
     void shouldReadHeaderLine() throws IOException {
         HttpClient client = new HttpClient("httpbin.org", 80, "/html");
-        assertEquals("text/html; chartype=utf-8", client.getHeader("Content-Type"));
+        assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
+    }
+
+    @Test
+    void shouldReadContentLength() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80, "/html");
+        assertEquals(3000, client.getContentLength());
     }
 }
