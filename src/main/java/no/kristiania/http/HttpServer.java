@@ -17,17 +17,32 @@ public class HttpServer {
     private void handleConnections() {
         try {
             Socket clientSocket = serverSocket.accept();
+            String[] requestLine = HttpClient.readLine(clientSocket).split(" ", 3);
+            String requestTarget = requestLine[1];
 
-            String messageContent = "Hello world";
+            if (requestTarget.equals("/hello")) {
+                String messageContent = "Hello world";
 
-            String responseMessage =
-                    "HTTP/1.1 200 OK\r\n" +
-                            "Content-Length: " + messageContent.length() + "\r\n" +
-                            "Connection: close\r\n" +
-                            "\r\n" +
-                            messageContent
-                    ;
-            clientSocket.getOutputStream().write(responseMessage.getBytes());
+                String responseMessage =
+                        "HTTP/1.1 200 OK\r\n" +
+                                "Content-Length: " + messageContent.length() + "\r\n" +
+                                "Connection: close\r\n" +
+                                "\r\n" +
+                                messageContent
+                        ;
+                clientSocket.getOutputStream().write(responseMessage.getBytes());
+            } else {
+                String messageContent = "not found";
+                String responseMessage =
+                        "HTTP/1.1 404 Not Found\r\n" +
+                                "Content-Length: " + messageContent.length() + "\r\n" +
+                                "Connection: close\r\n" +
+                                "\r\n" +
+                                messageContent
+                        ;
+                clientSocket.getOutputStream().write(responseMessage.getBytes());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
