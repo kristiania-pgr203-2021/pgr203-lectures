@@ -29,7 +29,15 @@ public class HttpClient {
             String headerValue = headerLine.substring(colonPos+1).trim();
             headerFields.put(headerName, headerValue);
         }
-        
+        messageBody = readBytes(socket, getContentLength());
+    }
+
+    private String readBytes(Socket socket, int contentLength) throws IOException {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < contentLength; i++) {
+            result.append((char)socket.getInputStream().read());
+        }
+        return result.toString();
     }
 
     private String readLine(Socket socket) throws IOException {
