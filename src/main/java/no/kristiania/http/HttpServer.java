@@ -3,10 +3,12 @@ package no.kristiania.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Path;
 
 public class HttpServer {
 
     private final ServerSocket serverSocket;
+    private Path contentRoot;
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -73,5 +75,9 @@ public class HttpServer {
 
     public int getPort() {
         return serverSocket.getLocalPort();
+    }
+
+    public void setRoot(Path contentRoot) {
+        this.contentRoot = contentRoot;
     }
 }
