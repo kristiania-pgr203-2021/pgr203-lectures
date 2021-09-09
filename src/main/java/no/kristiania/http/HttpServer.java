@@ -10,12 +10,14 @@ import java.nio.file.Paths;
 public class HttpServer {
 
     private final ServerSocket serverSocket;
+    private final Thread thread;
     private Path contentRoot = Paths.get(".");
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
 
-        new Thread(this::handleConnections).start();
+        thread = new Thread(this::handleConnections);
+        thread.start();
     }
 
     private void handleConnections() {
@@ -63,37 +65,21 @@ public class HttpServer {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8080);
-
-        Socket socket = serverSocket.accept();
-        
-        String messageContent = "Hello <strong>world</strong>";
-        
-        String responseMessage =
-                "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + messageContent.length() + "\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                messageContent
-                ;
-
-        socket.getOutputStream().write(responseMessage.getBytes());
-        socket.getOutputStream().flush();
-
-        int c;
-        while ((c = socket.getInputStream().read()) != -1) {
-            System.out.print((char)c);
-        }
-        
-        socket.close();
-    }
-
     public int getPort() {
         return serverSocket.getLocalPort();
     }
 
     public void setRoot(Path contentRoot) {
         this.contentRoot = contentRoot;
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        HttpServer httpServer = new HttpServer(8080);
+        httpServer.setRoot(Paths.get("target/example/"));
+        httpServer.join();
+    }
+
+    private void join() throws InterruptedException {
+        thread.join();
     }
 }
