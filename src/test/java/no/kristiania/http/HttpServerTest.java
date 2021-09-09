@@ -24,4 +24,10 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/no-content-here");
         assertEquals(404, client.getStatusCode());
     }
+
+    @Test
+    void shouldIncludeRequestTargetIn404Response() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/no-content-here");
+        assertEquals("File not found /no-content-here", client.getMessageBody());
+    }
 }
