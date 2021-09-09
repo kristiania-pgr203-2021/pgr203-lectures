@@ -3,6 +3,11 @@ on:
     branches:
       - reference/*
       - lecture/*
+  pull_request:
+    branches:
+      - reference/*
+      - lecture/*
+
 jobs:
   build:
     timeout-minutes: 1
