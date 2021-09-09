@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HttpClientTest {
     @Test
@@ -23,5 +24,11 @@ public class HttpClientTest {
     void shouldReadContentLength() throws IOException {
         HttpClient client = new HttpClient("httpbin.org", 80, "/html");
         assertEquals(3741, client.getContentLength());
+    }
+
+    @Test
+    void shouldReadMessageBody() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80, "/html");
+        assertTrue(client.getMessageBody().startsWith("<html"), "Should be HTML: " + client.getMessageBody());
     }
 }
