@@ -36,9 +36,14 @@ public class HttpServer {
             } else {
                 Path targetPath = contentRoot.resolve(requestTarget.substring(1));
                 if (Files.exists(targetPath)) {
+                    String contentType = "text/plain";
+                    if (targetPath.toString().endsWith(".html")) {
+                        contentType = "text/html";
+                    }
                     responseMessage = "HTTP/1.1 200 OK\r\n" +
                             "Content-Length: " + Files.size(targetPath) + "\r\n" +
                             "Connection: close\r\n" +
+                            "Content-Type: " + contentType + "\r\n" +
                             "\r\n" +
                             new String(Files.readAllBytes(targetPath));
                 } else {
