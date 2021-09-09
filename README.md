@@ -35,11 +35,16 @@ This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https:/
 
 ### Lecture 4: HTTP server
 
-This lecture covers `java.net.ServerSocket` and explores HTTP headers
+This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
+
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/04) 
+* [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/4)
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lectures/04)
+
 
 ### Lecture 5: HTTP post
 
-This lecture dives into the details of the `Content-Length` HTTP header and how to send and receive HTTP content body
+This lecture covers HTML forms and how they interact with the server
 
 ### Lecture 6: Refactoring
 
