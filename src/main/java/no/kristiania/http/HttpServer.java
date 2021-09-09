@@ -70,4 +70,8 @@ public class HttpServer {
         
         socket.close();
     }
+
+    public int getPort() {
+        return serverSocket.getLocalPort();
+    }
 }

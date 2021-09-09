@@ -21,7 +21,7 @@
 ## New: Http server
 
 * [x] HttpServer should respond with hello world
-* [ ] HttpServer should respond with 404
+* [x] HttpServer should respond with 404
 * [ ] HttpServer should echo request target in 404 message
 * [ ] HttpServer should return file from disk
 * [ ] HttpServer should set content type

@@ -8,17 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
 
+    private final HttpServer server = new HttpServer(0);
+
+    HttpServerTest() throws IOException {
+    }
+
     @Test
     void shouldRespondWithFixedContent() throws IOException {
-        HttpServer server = new HttpServer(10080);
-        HttpClient client = new HttpClient("localhost", 10080, "/hello");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertEquals("Hello world", client.getMessageBody());
     }
 
     @Test
     void shouldRespondWith404() throws IOException {
-        HttpServer server = new HttpServer(10081);
-        HttpClient client = new HttpClient("localhost", 10081, "/no-content-here");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/no-content-here");
         assertEquals(404, client.getStatusCode());
     }
 }
