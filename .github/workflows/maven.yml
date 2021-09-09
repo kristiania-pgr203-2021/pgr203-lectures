@@ -20,6 +20,6 @@ jobs:
         run: mvn -B package --fail-at-end
       - name: Publish Test Report
         if: ${{ always() }}
-        run: scacap/action-surefire-report@v1
+        uses: scacap/action-surefire-report@v1
 
           

@@ -4,8 +4,8 @@
 
 ## Repeat of lecture 2
 
-* [ ] Maven
-* [ ] Github Actions
+* [x] Maven
+* [x] Github Actions
 * [ ] Working-branch
 * [ ] Pull request
 
