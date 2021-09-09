@@ -5,22 +5,32 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class HttpServer {
+
+    private final ServerSocket serverSocket;
+
     public HttpServer(int port) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
 
-        Socket clientSocket = serverSocket.accept();
+        new Thread(this::handleConnections).start();
+    }
 
-        String messageContent = "Hello world";
+    private void handleConnections() {
+        try {
+            Socket clientSocket = serverSocket.accept();
 
-        String responseMessage =
-                "HTTP/1.1 200 OK\r\n" +
-                        "Content-Length: " + messageContent.length() + "\r\n" +
-                        "Connection: close\r\n" +
-                        "\r\n" +
-                        messageContent
-                ;
-        clientSocket.getOutputStream().write(responseMessage.getBytes());
+            String messageContent = "Hello world";
 
+            String responseMessage =
+                    "HTTP/1.1 200 OK\r\n" +
+                            "Content-Length: " + messageContent.length() + "\r\n" +
+                            "Connection: close\r\n" +
+                            "\r\n" +
+                            messageContent
+                    ;
+            clientSocket.getOutputStream().write(responseMessage.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException {

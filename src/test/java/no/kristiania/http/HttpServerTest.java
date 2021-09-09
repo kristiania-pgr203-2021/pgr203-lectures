@@ -12,6 +12,6 @@ class HttpServerTest {
     void shouldRespondWithFixedContent() throws IOException {
         HttpServer server = new HttpServer(10080);
         HttpClient client = new HttpClient("localhost", 10080, "/hello");
-        assertEquals("Hello World", client.getMessageBody());
+        assertEquals("Hello world", client.getMessageBody());
     }
 }
