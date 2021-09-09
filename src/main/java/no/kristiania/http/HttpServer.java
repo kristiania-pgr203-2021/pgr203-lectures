@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class HttpServer {
+    public HttpServer(int port) {
+    }
+
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
 
