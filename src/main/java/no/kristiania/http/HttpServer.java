@@ -3,12 +3,14 @@ package no.kristiania.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HttpServer {
 
     private final ServerSocket serverSocket;
-    private Path contentRoot;
+    private Path contentRoot = Paths.get(".");
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -32,14 +34,23 @@ public class HttpServer {
                         "\r\n" +
                         messageContent;
             } else {
-                String messageContent = "File not found " + requestTarget;
-                responseMessage =
-                        "HTTP/1.1 404 Not Found\r\n" +
-                                "Content-Length: " + messageContent.length() + "\r\n" +
-                                "Connection: close\r\n" +
-                                "\r\n" +
-                                messageContent
-                        ;
+                Path targetPath = contentRoot.resolve(requestTarget.substring(1));
+                if (Files.exists(targetPath)) {
+                    responseMessage = "HTTP/1.1 200 OK\r\n" +
+                            "Content-Length: " + Files.size(targetPath) + "\r\n" +
+                            "Connection: close\r\n" +
+                            "\r\n" +
+                            new String(Files.readAllBytes(targetPath));
+                } else {
+                    String messageContent = "File not found " + requestTarget;
+                    responseMessage =
+                            "HTTP/1.1 404 Not Found\r\n" +
+                                    "Content-Length: " + messageContent.length() + "\r\n" +
+                                    "Connection: close\r\n" +
+                                    "\r\n" +
+                                    messageContent
+                    ;
+                }
             }
             clientSocket.getOutputStream().write(responseMessage.getBytes());
         } catch (IOException e) {
