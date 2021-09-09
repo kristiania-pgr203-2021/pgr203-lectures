@@ -14,4 +14,11 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", 10080, "/hello");
         assertEquals("Hello world", client.getMessageBody());
     }
+
+    @Test
+    void shouldRespondWith404() throws IOException {
+        HttpServer server = new HttpServer(10081);
+        HttpClient client = new HttpClient("localhost", 10081, "/no-content-here");
+        assertEquals(404, client.getStatusCode());
+    }
 }
