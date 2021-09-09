@@ -22,6 +22,6 @@
 
 * [x] HttpServer should respond with hello world
 * [x] HttpServer should respond with 404
-* [ ] HttpServer should echo request target in 404 message
+* [x] HttpServer should echo request target in 404 message
 * [ ] HttpServer should return file from disk
 * [ ] HttpServer should set content type

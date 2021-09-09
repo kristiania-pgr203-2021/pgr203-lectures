@@ -30,7 +30,7 @@ public class HttpServer {
                         "\r\n" +
                         messageContent;
             } else {
-                String messageContent = "not found";
+                String messageContent = "File not found " + requestTarget;
                 responseMessage =
                         "HTTP/1.1 404 Not Found\r\n" +
                                 "Content-Length: " + messageContent.length() + "\r\n" +
