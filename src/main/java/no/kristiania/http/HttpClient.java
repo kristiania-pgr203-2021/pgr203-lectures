@@ -2,9 +2,12 @@ package no.kristiania.http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpClient {
     private final int statusCode;
+    private Map<String, String> headerFields = new HashMap<>();
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
@@ -18,6 +21,13 @@ public class HttpClient {
         
         String statusLine = readLine(socket);
         this.statusCode = Integer.parseInt(statusLine.split(" ")[1]);
+        String headerLine;
+        while (!(headerLine = readLine(socket)).isBlank()) {
+            int colonPos = headerLine.indexOf(':');
+            String headerName = headerLine.substring(0, colonPos);
+            String headerValue = headerLine.substring(colonPos+1);
+            headerFields.put(headerName, headerValue);
+        }
     }
 
     private String readLine(Socket socket) throws IOException {
@@ -34,6 +44,6 @@ public class HttpClient {
     }
 
     public String getHeader(String fieldName) {
-        return null;
+        return headerFields.get(fieldName);
     }
 }
