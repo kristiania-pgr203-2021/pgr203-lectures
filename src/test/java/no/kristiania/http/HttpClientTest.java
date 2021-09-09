@@ -12,4 +12,10 @@ public class HttpClientTest {
         assertEquals(200, new HttpClient("httpbin.org", 80, "/html").getStatusCode());
         assertEquals(404, new HttpClient("httpbin.org", 80, "/no-such-file").getStatusCode());
     }
+    
+    @Test
+    void shouldReadHeaderLine() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80, "/html");
+        assertEquals("text/html; chartype=utf-8", client.getHeader("Content-Type"));
+    }
 }
