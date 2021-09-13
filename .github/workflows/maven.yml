@@ -1,0 +1,27 @@
+name: Build with Maven
+
+on:
+  push:
+    branches:
+      - lecture/*
+  pull_request:
+    branches:
+      - lecture/*
+        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: 'maven'
+      - name: Build with Maven
+        run: mvn -B package
+
+          
