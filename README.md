@@ -7,16 +7,17 @@ HTTP request ser ut
 
 * [x] Maven
 * [x] Github Actions
-* [ ] Working branch
+* [x] Working branch
 * [ ] Pull request
+* [ ] Test report
 
 ## Repeat av lecture 3: Socket, HTTP
 
-* [ ] Socket connects server
-* [ ] Status code
-* [ ] Header fields
-* [ ] Content-length
-* [ ] Message body
+* [x] Socket connects server
+* [x] Status code
+* [x] Header fields
+* [x] Content-length
+* [x] Message body
  
 ## TODAY: HttpServer
 
