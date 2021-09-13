@@ -17,4 +17,10 @@ public class HttpClientTest {
                 new HttpClient("httpbin.org", 80, "/no-such-page")
                         .getStatusCode());
     }
+
+    @Test
+    void shouldReturnHeaders() throws IOException {
+        HttpClient client = new HttpClient("httpbin.org", 80, "/html");
+        assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
+    }
 }
