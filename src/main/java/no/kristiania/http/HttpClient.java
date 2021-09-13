@@ -37,7 +37,8 @@ public class HttpClient {
         while ((c = socket.getInputStream().read()) != '\r') {
             buffer.append((char)c);
         }
-        socket.getInputStream().read();
+        int expectedNewline = socket.getInputStream().read();
+        assert expectedNewline == '\n';
         return buffer.toString();
     }
 

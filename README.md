@@ -13,9 +13,9 @@ HTTP request ser ut
 
 ## Repeat av lecture 3: Socket, HTTP
 
-* [ ] Socket connects server
-* [ ] Status code
-* [ ] Header fields
+* [x] Socket connects server
+* [x] Status code
+* [x] Header fields
 * [ ] Content-length
 * [ ] Message body
  
