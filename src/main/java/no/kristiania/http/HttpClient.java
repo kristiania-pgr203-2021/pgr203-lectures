@@ -30,6 +30,15 @@ public class HttpClient {
             headerFields.put(headerField, headerValue);
         }
 
+        this.messageBody = readBytes(socket, getContentLength());
+    }
+
+    private String readBytes(Socket socket, int contentLength) throws IOException {
+        StringBuilder buffer = new StringBuilder();
+        for (int i = 0; i < contentLength; i++) {
+            buffer.append((char)socket.getInputStream().read());
+        }
+        return buffer.toString();
     }
 
     private String readLine(Socket socket) throws IOException {
