@@ -8,7 +8,7 @@ HTTP request ser ut
 * [x] Maven
 * [x] Github Actions
 * [x] Working branch
-* [ ] Pull request
+* [x] Pull request
 * [ ] Test report
 
 ## Repeat av lecture 3: Socket, HTTP
