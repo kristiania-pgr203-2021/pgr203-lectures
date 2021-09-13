@@ -39,7 +39,7 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 
 * [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/04) 
 * [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/4)
-* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lectures/04)
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/04)
 
 
 ### Lecture 5: HTTP post
