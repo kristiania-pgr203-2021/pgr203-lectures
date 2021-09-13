@@ -41,7 +41,7 @@ public class HttpClient {
         return buffer.toString();
     }
 
-    private String readLine(Socket socket) throws IOException {
+    static String readLine(Socket socket) throws IOException {
         StringBuilder buffer = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {

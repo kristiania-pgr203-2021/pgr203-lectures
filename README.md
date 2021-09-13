@@ -9,7 +9,7 @@ HTTP request ser ut
 * [x] Github Actions
 * [x] Working branch
 * [x] Pull request
-* [ ] Test report
+* [x] Test report
 
 ## Repeat av lecture 3: Socket, HTTP
 
