@@ -743,6 +743,8 @@ Less used than the shortcuts, these shorthand ways of writing common bits of Jav
 * `maven-shade-plugin`: Used to make the jar-file executable with `java -jar <jarfile>`
 
 ### GitHub Actions
+ 
+Learn more about Github Actions: [Github Actions Tutorial on YouTube](https://www.youtube.com/watch?v=R8_veQiYBjI)
 
 Example of file checked in as `.github/workflows/maven.yml`
 
