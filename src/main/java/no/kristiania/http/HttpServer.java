@@ -6,7 +6,13 @@ import java.net.Socket;
 
 public class HttpServer {
 
-    public HttpServer(int port) {
+    public HttpServer(int port) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(port);
+        Socket clientSocket = serverSocket.accept();
+
+        String responseMessage = "HTTP/1.1 404 Not found\r\n" +
+                "\r\n";
+        clientSocket.getOutputStream().write(responseMessage.getBytes());
     }
 
     public static void main(String[] args) throws IOException {
