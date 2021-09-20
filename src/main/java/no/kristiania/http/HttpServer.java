@@ -34,8 +34,8 @@ public class HttpServer {
                 return;
             }
             
-            if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget))) {
-                String responseBody = Files.readString(contentRoot.resolve(requestTarget));
+            if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget.substring(1)))) {
+                String responseBody = Files.readString(contentRoot.resolve(requestTarget.substring(1)));
 
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length: " + responseBody.length() + "\r\n" +
