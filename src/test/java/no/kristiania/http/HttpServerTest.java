@@ -29,7 +29,10 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
                 () -> assertEquals(200, client.getStatusCode()),
-                () -> assertEquals("Hello world", client.getMessageBody())        
+                () -> assertEquals("text/html", client.getHeader("Content-Type")),
+                () -> assertEquals("<p>Hello world</p>", client.getMessageBody())        
         );
     }
+    
+    
 }
