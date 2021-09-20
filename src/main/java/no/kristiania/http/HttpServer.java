@@ -29,7 +29,11 @@ public class HttpServer {
             String query = questionPos != -1 ? requestTarget.substring(questionPos+1) : null;
             
             if (absolutePath.equals("/hello")) {
-                String responseBody = "<p>Hello world</p>";
+                String username = "world";
+                if (query != null) {
+                    username = query.split("=")[1];
+                }
+                String responseBody = "<p>Hello " + username + "</p>";
 
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length: " + responseBody.length() + "\r\n" +
