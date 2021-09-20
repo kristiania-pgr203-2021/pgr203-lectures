@@ -18,6 +18,7 @@ public class HttpServer {
             Socket clientSocket = serverSocket.accept();
 
             String responseMessage = "HTTP/1.1 404 Not found\r\n" +
+                    "Content-Length: 0\r\n" +
                     "\r\n";
             clientSocket.getOutputStream().write(responseMessage.getBytes());
         } catch (IOException e) {
