@@ -6,31 +6,43 @@ import java.net.Socket;
 
 public class HttpServer {
 
-    public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8080);
+    private final ServerSocket serverSocket;
 
+    public HttpServer(int serverPort) throws IOException {
+        serverSocket = new ServerSocket(serverPort);
+
+        new Thread(this::handleClients).start();
+    }
+
+    private void handleClients() {
+        try {
+            Socket clientSocket = serverSocket.accept();
+            String response = "HTTP/1.1 404 Not found\r\nContent-Length: 0\r\n\r\n";
+            clientSocket.getOutputStream().write(response.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        ServerSocket serverSocket = new ServerSocket(1962);
 
         Socket clientSocket = serverSocket.accept();
         
-        
-        String requestLine = HttpClient.readLine(clientSocket);
+        String html = "Hallo der";
+        String contentType = "text/html";
 
-        System.out.println(requestLine);
-        
-        String headerLine;
-        while (!(headerLine = HttpClient.readLine(clientSocket)).isBlank()) {
-            System.out.println(headerLine);
-        }
-        
-        
-        String messageBody = "Hello world";
-
-        String responseMessage = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + messageBody.length() + "\r\n" +
+        String response = "HTTP/1.1 200 Det gikk greit\r\n" +
+                "Content-Length: " + (html.length()) + "\r\n" +
+                "Content-Type: " + contentType + "\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
-                messageBody;
-        clientSocket.getOutputStream().write(responseMessage.getBytes());
+                html;
+        
+        clientSocket.getOutputStream().write(response.getBytes());
+
+
     }
     
 }
