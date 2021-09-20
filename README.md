@@ -21,8 +21,10 @@ HTTP request ser ut
  
 ## TODAY: HttpServer
 
+* [x] Experiment with HTTP server
 * [ ] HttpServer should respond with 404
 * [ ] HttpServer should include request target in 404
 * [ ] Return a static content for /hello
-* [ ] Return HTML file from disk
 * [ ] Content-type
+* [ ] Return HTML file from disk
+* [ ] Respond to form
