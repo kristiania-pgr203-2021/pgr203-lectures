@@ -17,7 +17,15 @@ public class HttpServer {
     private void handleClients() {
         try {
             Socket clientSocket = serverSocket.accept();
-            String response = "HTTP/1.1 404 Not found\r\nContent-Length: 0\r\n\r\n";
+            
+            String[] requestLine = HttpClient.readLine(clientSocket).split(" ");
+            String requestTarget = requestLine[1];
+            String responseText = "File not found: " + requestTarget;
+            
+            String response = "HTTP/1.1 404 Not found\r\n" +
+                    "Content-Length: " + responseText.length() + "\r\n" +
+                    "\r\n" +
+                    responseText;
             clientSocket.getOutputStream().write(response.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
