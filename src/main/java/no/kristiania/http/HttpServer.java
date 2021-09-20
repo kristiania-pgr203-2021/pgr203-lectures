@@ -10,15 +10,19 @@ public class HttpServer {
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
-        handleClient();
+        new Thread(this::handleClient).start();
     }
 
-    private void handleClient() throws IOException {
-        Socket clientSocket = serverSocket.accept();
+    private void handleClient() {
+        try {
+            Socket clientSocket = serverSocket.accept();
 
-        String responseMessage = "HTTP/1.1 404 Not found\r\n" +
-                "\r\n";
-        clientSocket.getOutputStream().write(responseMessage.getBytes());
+            String responseMessage = "HTTP/1.1 404 Not found\r\n" +
+                    "\r\n";
+            clientSocket.getOutputStream().write(responseMessage.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException {
