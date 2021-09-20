@@ -31,10 +31,7 @@ public class HttpServer {
                         "\r\n" +
                         responseBody;
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
-                return;
-            }
-            
-            if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget.substring(1)))) {
+            } else if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget.substring(1)))) {
                 String responseBody = Files.readString(contentRoot.resolve(requestTarget.substring(1)));
 
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
@@ -42,17 +39,15 @@ public class HttpServer {
                         "\r\n" +
                         responseBody;
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
-                return;
+            } else {
+                String responseBody = "File not found: " + requestTarget;
+
+                String responseMessage = "HTTP/1.1 404 Not found\r\n" +
+                        "Content-Length: " + responseBody.length() + "\r\n" +
+                        "\r\n" +
+                        responseBody;
+                clientSocket.getOutputStream().write(responseMessage.getBytes());
             }
-            
-
-            String responseBody = "File not found: " + requestTarget;
-
-            String responseMessage = "HTTP/1.1 404 Not found\r\n" +
-                    "Content-Length: " + responseBody.length() + "\r\n" +
-                    "\r\n" +
-                    responseBody;
-            clientSocket.getOutputStream().write(responseMessage.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
