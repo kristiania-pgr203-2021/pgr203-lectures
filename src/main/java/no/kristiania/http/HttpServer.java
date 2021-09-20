@@ -25,8 +25,22 @@ public class HttpServer {
             String[] requestLine = HttpClient.readLine(clientSocket).split(" ");
             String requestTarget = requestLine[1];
             
-            if (requestTarget.equals("/hello")) {
-                String responseText = "<p>Hello world</p>";
+            int questionPos = requestTarget.indexOf('?');
+            String fileTarget;
+            String query = null;
+            if (questionPos != -1) {
+                fileTarget = requestTarget.substring(0, questionPos);
+                query = requestTarget.substring(questionPos+1);
+            } else {
+                fileTarget = requestTarget;
+            }
+            
+            if (fileTarget.equals("/hello")) {
+                String yourName = "world";
+                if (query != null){
+                    yourName = query.split("=")[1];
+                }
+                String responseText = "<p>Hello " + yourName + "</p>";
 
                 String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length: " + responseText.length() + "\r\n" +
@@ -35,8 +49,8 @@ public class HttpServer {
                         responseText;
                 clientSocket.getOutputStream().write(response.getBytes());
             } else {
-                if (rootDirectory != null && Files.exists(rootDirectory.resolve(requestTarget.substring(1)))) {
-                    String responseText = Files.readString(rootDirectory.resolve(requestTarget.substring(1)));
+                if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
+                    String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
 
                     String contentType = "text/plain";
                     if (requestTarget.endsWith(".html")) {
