@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HttpServer {
 
@@ -54,7 +55,8 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new HttpServer(8080);
+        HttpServer server = new HttpServer(8080);
+        server.setContentRoot(Paths.get("."));
     }
 
     public int getPort() {
