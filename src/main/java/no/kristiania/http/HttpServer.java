@@ -24,7 +24,11 @@ public class HttpServer {
             String[] requestLine = HttpClient.readLine(clientSocket).split(" ");
             String requestTarget = requestLine[1];
             
-            if (requestTarget.equals("/hello")) {
+            int questionPos = requestTarget.indexOf('?');
+            String absolutePath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
+            String query = questionPos != -1 ? requestTarget.substring(questionPos+1) : null;
+            
+            if (absolutePath.equals("/hello")) {
                 String responseBody = "<p>Hello world</p>";
 
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
@@ -32,10 +36,10 @@ public class HttpServer {
                         "\r\n" +
                         responseBody;
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
-            } else if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget.substring(1)))) {
-                String responseBody = Files.readString(contentRoot.resolve(requestTarget.substring(1)));
+            } else if (contentRoot != null && Files.exists(contentRoot.resolve(absolutePath.substring(1)))) {
+                String responseBody = Files.readString(contentRoot.resolve(absolutePath.substring(1)));
                 String contentType = "text/plain";
-                if (requestTarget.endsWith(".html")) {
+                if (absolutePath.endsWith(".html")) {
                     contentType = "text/html";
                 }
                 
@@ -46,7 +50,7 @@ public class HttpServer {
                         responseBody;
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
             } else {
-                String responseBody = "File not found: " + requestTarget;
+                String responseBody = "File not found: " + absolutePath;
 
                 String responseMessage = "HTTP/1.1 404 Not found\r\n" +
                         "Content-Length: " + responseBody.length() + "\r\n" +
