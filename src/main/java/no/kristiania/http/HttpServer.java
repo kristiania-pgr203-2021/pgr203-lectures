@@ -6,8 +6,14 @@ import java.net.Socket;
 
 public class HttpServer {
 
+    private final ServerSocket serverSocket;
+
     public HttpServer(int port) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
+        handleClient();
+    }
+
+    private void handleClient() throws IOException {
         Socket clientSocket = serverSocket.accept();
 
         String responseMessage = "HTTP/1.1 404 Not found\r\n" +
