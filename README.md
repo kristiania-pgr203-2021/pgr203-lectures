@@ -46,6 +46,10 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 
 This lecture covers HTML forms and how they interact with the server
 
+* [Issues resolved](https://github.com/kristiania-pgr203-2021/pgr203-lectures/milestone/5)
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/05)
+
+
 ### Lecture 6: Refactoring
 
 This lectures dives into how to change your code to improve the structure while keeping it working
