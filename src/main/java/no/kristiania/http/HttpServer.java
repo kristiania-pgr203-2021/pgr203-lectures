@@ -3,6 +3,7 @@ package no.kristiania.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class HttpServer {
@@ -24,6 +25,17 @@ public class HttpServer {
             
             if (requestTarget.equals("/hello")) {
                 String responseBody = "<p>Hello world</p>";
+
+                String responseMessage = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Length: " + responseBody.length() + "\r\n" +
+                        "\r\n" +
+                        responseBody;
+                clientSocket.getOutputStream().write(responseMessage.getBytes());
+                return;
+            }
+            
+            if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget))) {
+                String responseBody = Files.readString(contentRoot.resolve(requestTarget));
 
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length: " + responseBody.length() + "\r\n" +
