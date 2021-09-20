@@ -34,9 +34,14 @@ public class HttpServer {
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
             } else if (contentRoot != null && Files.exists(contentRoot.resolve(requestTarget.substring(1)))) {
                 String responseBody = Files.readString(contentRoot.resolve(requestTarget.substring(1)));
-
+                String contentType = "text/plain";
+                if (requestTarget.endsWith(".html")) {
+                    contentType = "text/html";
+                }
+                
                 String responseMessage = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length: " + responseBody.length() + "\r\n" +
+                        "Content-Type: " + contentType + "\r\n" +
                         "\r\n" +
                         responseBody;
                 clientSocket.getOutputStream().write(responseMessage.getBytes());
