@@ -35,6 +35,13 @@ class HttpServerTest {
     }
 
     @Test
+    void shouldParseQueryParameters() throws IOException {
+        HttpServer server = new HttpServer(0);
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/hello?username=Johannes");
+        assertEquals("<p>Hello Johannes</p>", client.getMessageBody());
+    }
+
+    @Test
     void shouldRespondWithFileOnDisk() throws IOException {
         Path contentRoot = Paths.get("target/test-classes");
         String fileContent = "Content created at " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
