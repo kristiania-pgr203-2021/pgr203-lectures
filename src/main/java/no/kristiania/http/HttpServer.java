@@ -19,6 +19,18 @@ public class HttpServer {
 
             String[] requestLine = HttpClient.readLine(clientSocket).split(" ");
             String requestTarget = requestLine[1];
+            
+            if (requestTarget.equals("/hello")) {
+                String responseBody = "<p>Hello world</p>";
+
+                String responseMessage = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Length: " + responseBody.length() + "\r\n" +
+                        "\r\n" +
+                        responseBody;
+                clientSocket.getOutputStream().write(responseMessage.getBytes());
+                return;
+            }
+            
 
             String responseBody = "File not found: " + requestTarget;
 
