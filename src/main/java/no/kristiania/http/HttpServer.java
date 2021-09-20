@@ -67,16 +67,16 @@ public class HttpServer {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        HttpServer server = new HttpServer(8080);
-        server.setContentRoot(Paths.get("."));
-    }
-
     public int getPort() {
         return serverSocket.getLocalPort();
     }
 
     public void setContentRoot(Path contentRoot) {
         this.contentRoot = contentRoot;
+    }
+
+    public static void main(String[] args) throws IOException {
+        HttpServer server = new HttpServer(8080);
+        server.setContentRoot(Paths.get("."));
     }
 }
