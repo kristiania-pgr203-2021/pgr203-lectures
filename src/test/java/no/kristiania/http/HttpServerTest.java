@@ -12,23 +12,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpServerTest {
 
+    private final HttpServer server = new HttpServer(0);
+
+    HttpServerTest() throws IOException {
+    }
+
     @Test
     void shouldReturn404ForUnknownRequestTarget() throws IOException {
-        HttpServer server = new HttpServer(10001);
         HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals(404, client.getStatusCode());
     }
     
     @Test
     void shouldRespondWithRequestTargetIn404() throws IOException {
-        HttpServer server = new HttpServer(10002);
         HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals("File not found: /non-existing", client.getMessageBody());
     }
 
     @Test
     void shouldRespondWith200ForKnownRequestTarget() throws IOException {
-        HttpServer server = new HttpServer(10003);
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
         assertAll(
                 () -> assertEquals(200, client.getStatusCode()),
@@ -39,14 +41,12 @@ class HttpServerTest {
 
     @Test
     void shouldEchoQueryParameter() throws IOException {
-        HttpServer server = new HttpServer(0);
         HttpClient client = new HttpClient("localhost", server.getPort(), "/hello?yourName=johannes");
         assertEquals("<p>Hello johannes</p>", client.getMessageBody());
     }
 
     @Test
     void shouldServeFiles() throws IOException {
-        HttpServer server = new HttpServer(0);
         server.setRoot(Paths.get("target/test-classes"));
         
         String fileContent = "A file created at " + LocalTime.now();
@@ -59,7 +59,6 @@ class HttpServerTest {
 
     @Test
     void shouldUseFileExtensionForContentType() throws IOException {
-        HttpServer server = new HttpServer(0);
         server.setRoot(Paths.get("target/test-classes"));
 
         String fileContent = "<p>Hello</p>";
@@ -67,5 +66,11 @@ class HttpServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/example-file.html");
         assertEquals("text/html", client.getHeader("Content-Type"));
+    }
+
+    @Test
+    void shouldProcessSeveralRequest() throws IOException {
+        assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello").getStatusCode());
+        assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello").getStatusCode());
     }
 }
