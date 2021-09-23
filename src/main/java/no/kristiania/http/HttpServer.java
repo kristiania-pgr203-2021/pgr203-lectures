@@ -7,12 +7,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HttpServer {
 
     private final ServerSocket serverSocket;
     private Path rootDirectory;
+    private List<String> roles;
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -117,5 +119,9 @@ public class HttpServer {
 
     public void setRoot(Path rootDirectory) {
         this.rootDirectory = rootDirectory;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
