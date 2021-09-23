@@ -1,0 +1,10 @@
+body {
+    background-color: azure;
+}
+
+main {
+    max-width: 50em;
+    margin: auto;
+    padding: 0.5em 1em;
+    background-color: white;
+}
