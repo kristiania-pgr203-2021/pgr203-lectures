@@ -49,13 +49,26 @@ public class HttpServer {
 
         if (fileTarget.equals("/hello")) {
             String yourName = "world";
-            
+
             Map<String, String> parameters = parseQuery(query);
-            
-            if (!parameters.isEmpty()){
+
+            if (!parameters.isEmpty()) {
                 yourName = parameters.get("lastName") + ", " + parameters.get("firstName");
             }
             String responseText = "<p>Hello " + yourName + "</p>";
+
+            String response = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Length: " + responseText.length() + "\r\n" +
+                    "Content-Type: text/html\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n" +
+                    responseText;
+            clientSocket.getOutputStream().write(response.getBytes());
+        } else if (fileTarget.equals("/api/roleOptions")) {
+            String responseText = "";
+            for (int i = 0, rolesSize = roles.size(); i < rolesSize; i++) {
+                responseText += "<option value='" + (i+1) + "'>" + roles.get(i) + "</option>";
+            }
 
             String response = "HTTP/1.1 200 OK\r\n" +
                     "Content-Length: " + responseText.length() + "\r\n" +
