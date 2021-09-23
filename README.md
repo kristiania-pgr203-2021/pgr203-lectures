@@ -32,7 +32,7 @@ HTTP request ser ut
 * [x] Process more than one file
 * [x] Return <form>
 * [x] Process GET request for form
-* [ ] Process JavaScript
-* [ ] Process POST request from form
+* [x] Process JavaScript
 * [ ] Package as executable jar
+* [ ] Process POST request from form
 * [ ] Refactor
