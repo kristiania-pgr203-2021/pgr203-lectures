@@ -29,8 +29,8 @@ HTTP request ser ut
 
 ## Lecture 6: Processings forms and JavaScript requests 
 
-* [ ] Process more than one file
-* [ ] Return <form>
+* [x] Process more than one file
+* [x] Return <form>
 * [ ] Process GET request for form
 * [ ] Process POST request from form
 * [ ] Package as executable jar
