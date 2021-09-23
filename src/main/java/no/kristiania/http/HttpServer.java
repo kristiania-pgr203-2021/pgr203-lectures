@@ -57,46 +57,23 @@ public class HttpServer {
             }
             String responseText = "<p>Hello " + yourName + "</p>";
 
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Length: " + responseText.length() + "\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    responseText;
-            clientSocket.getOutputStream().write(response.getBytes());
+            respondWithContent(clientSocket, responseText, "text/html");
         } else if (fileTarget.equals("/api/roleOptions")) {
             String responseText = "";
             for (int i = 0, rolesSize = roles.size(); i < rolesSize; i++) {
                 responseText += "<option value='" + (i+1) + "'>" + roles.get(i) + "</option>";
             }
+            respondWithContent(clientSocket, responseText, "text/html");
+        } else if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
+            String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
 
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Length: " + responseText.length() + "\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    responseText;
-            clientSocket.getOutputStream().write(response.getBytes());
-        } else {
-            if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
-                String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
-
-                String contentType = "text/plain";
-                if (requestTarget.endsWith(".html")) {
-                    contentType = "text/html";
-                }
-                String response = "HTTP/1.1 200 OK\r\n" +
-                        "Content-Length: " + responseText.length() + "\r\n" +
-                        "Content-Type: " + contentType + "\r\n" +
-                        "Connection: close\r\n" +
-                        "\r\n" +
-                        responseText;
-                clientSocket.getOutputStream().write(response.getBytes());
-                return;
+            String contentType = "text/plain";
+            if (requestTarget.endsWith(".html")) {
+                contentType = "text/html";
             }
-            
-            
-            
+            respondWithContent(clientSocket, responseText, contentType);
+        } else {
+
             String responseText = "File not found: " + requestTarget;
 
             String response = "HTTP/1.1 404 Not found\r\n" +
@@ -106,6 +83,16 @@ public class HttpServer {
                     responseText;
             clientSocket.getOutputStream().write(response.getBytes());
         }
+    }
+
+    private void respondWithContent(Socket clientSocket, String messageBody, final String contentType) throws IOException {
+        String response = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + messageBody.length() + "\r\n" +
+                "Content-Type: " + contentType + "\r\n" +
+                "Connection: close\r\n" +
+                "\r\n" +
+                messageBody;
+        clientSocket.getOutputStream().write(response.getBytes());
     }
 
     private Map<String, String> parseQuery(String query) {
