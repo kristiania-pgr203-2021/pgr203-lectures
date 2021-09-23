@@ -111,6 +111,7 @@ public class HttpServer {
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = new HttpServer(1962);
         httpServer.setRoot(Paths.get("src/main/resources"));
+        httpServer.setRoles(List.of("Student", "Teaching Assistant", "Teacher", "Administrator"));
     }
 
     public int getPort() {
