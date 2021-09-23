@@ -33,6 +33,6 @@ HTTP request ser ut
 * [x] Return <form>
 * [x] Process GET request for form
 * [x] Process JavaScript
-* [ ] Package as executable jar
+* [x] Package as executable jar
 * [ ] Process POST request from form
 * [ ] Refactor
