@@ -19,14 +19,19 @@ HTTP request ser ut
 * [x] Content-length
 * [x] Message body
  
-## TODAY: HttpServer
+## Lecture 5: HttpServer
 
 * [x] HttpServer should respond with 404
 * [x] HttpServer should include request target in 404
 * [x] Return a static content for /hello
-* [ ] Content-type
-* [ ] Return HTML file from disk
+* [x] Content-type
+* [x] Return HTML file from disk
+
+## Lecture 6: Processings forms and JavaScript requests 
+
+* [ ] Process more than one file
 * [ ] Return <form>
 * [ ] Process GET request for form
 * [ ] Process POST request from form
-
+* [ ] Package as executable jar
+* [ ] Refactor
