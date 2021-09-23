@@ -41,8 +41,8 @@ class HttpServerTest {
 
     @Test
     void shouldEchoQueryParameter() throws IOException {
-        HttpClient client = executeRequest("/hello?yourName=johannes");
-        assertEquals("<p>Hello johannes</p>", client.getMessageBody());
+        HttpClient client = executeRequest("/hello?firstName=Test&lastName=Persson");
+        assertEquals("<p>Hello Persson, Test</p>", client.getMessageBody());
     }
 
     @Test
