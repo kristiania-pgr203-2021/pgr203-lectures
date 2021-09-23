@@ -31,7 +31,8 @@ HTTP request ser ut
 
 * [x] Process more than one file
 * [x] Return <form>
-* [ ] Process GET request for form
+* [x] Process GET request for form
+* [ ] Process JavaScript
 * [ ] Process POST request from form
 * [ ] Package as executable jar
 * [ ] Refactor

@@ -18,6 +18,22 @@
             <p><label>Last name: <input type="text" name="lastName"></label></p>
             <button>Submit</button>
         </form>
+        
+        <h1>Add a person to the database</h1>
+
+        <form action="/api/newPerson">
+            <p><label>First name: <input type="text" name="firstName"></label></p>
+            <p><label>Last name: <input type="text" name="lastName"></label></p>
+            <p><label>Role:</label> <select name="role" id="roles"></select></p>
+            <button>Submit</button>
+        </form>
     </main>
 </body>
+<script>
+    fetch("/api/roleOptions").then(function (res) {
+        return res.text();
+    }).then(function (text) {
+        document.querySelector("#roles").innerHTML = text;
+    })
+</script>
 </html>
