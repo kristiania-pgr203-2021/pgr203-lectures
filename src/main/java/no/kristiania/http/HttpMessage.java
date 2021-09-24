@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpMessage {
-    final Map<String, String> headerFields = new HashMap<>();
-    final String startLine;
-
-    String messageBody;
+    private final Map<String, String> headerFields = new HashMap<>();
+    private final String startLine;
+    private String messageBody;
 
     public HttpMessage(Socket socket) throws IOException {
         this.startLine = HttpMessage.readLine(socket);
@@ -51,5 +50,13 @@ public class HttpMessage {
             buffer.append((char)socket.getInputStream().read());
         }
         return buffer.toString();
+    }
+
+    public String getMessageBody() {
+        return messageBody;
+    }
+
+    public String getStartLine() {
+        return startLine;
     }
 }
