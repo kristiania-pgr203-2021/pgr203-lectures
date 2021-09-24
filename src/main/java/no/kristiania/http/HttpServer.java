@@ -62,6 +62,9 @@ public class HttpServer {
 
             respondWithContent(clientSocket, responseText, "text/html");
         } else if (fileTarget.equals("/api/newPerson")) {
+            Person person = new Person();
+            people.add(person);
+            
             respondWithContent(clientSocket, "ok", "text/html");
         } else if (fileTarget.equals("/api/roleOptions")) {
             String responseText = "";
