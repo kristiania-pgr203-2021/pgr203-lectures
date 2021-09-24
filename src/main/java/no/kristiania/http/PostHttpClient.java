@@ -12,8 +12,10 @@ public class PostHttpClient {
 
         String request = "GET " + requestTarget + " HTTP/1.1\r\n" +
                 "Host: " + host + "\r\n" +
+                "Content-Length: " + messageBody.length() + "\r\n" +
                 "Connection: close\r\n" +
-                "\r\n";
+                "\r\n" +
+                messageBody;
         socket.getOutputStream().write(request.getBytes());
 
         httpMessage = new HttpMessage(socket);

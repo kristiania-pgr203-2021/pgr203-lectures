@@ -62,7 +62,10 @@ public class HttpServer {
 
             respondWithContent(clientSocket, responseText, "text/html");
         } else if (fileTarget.equals("/api/newPerson")) {
+            Map<String, String> parameters = parseQuery(httpMessage.getMessageBody());
+
             Person person = new Person();
+            person.setLastName(parameters.get("lastName"));
             people.add(person);
             
             respondWithContent(clientSocket, "ok", "text/html");
