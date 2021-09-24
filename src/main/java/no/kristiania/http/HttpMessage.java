@@ -7,8 +7,32 @@ import java.util.Map;
 
 public class HttpMessage {
     final Map<String, String> headerFields = new HashMap<>();
+    final String startLine;
 
-    public String messageBody;
+    String messageBody;
+
+    public HttpMessage(Socket socket) throws IOException {
+        this.startLine = HttpMessage.readLine(socket);
+
+        String headerLine;
+        while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
+            int colonPos = headerLine.indexOf(':');
+            String headerField = headerLine.substring(0, colonPos);
+            String headerValue = headerLine.substring(colonPos+1).trim();
+            headerFields.put(headerField, headerValue);
+        }
+
+        messageBody = readBytes(socket, getContentLength());
+    }
+
+    public String getHeader(String headerName) {
+        return headerFields.get(headerName);
+    }
+
+    public int getContentLength() {
+        return Integer.parseInt(getHeader("Content-Length"));
+    }
+
 
     static String readLine(Socket socket) throws IOException {
         StringBuilder buffer = new StringBuilder();

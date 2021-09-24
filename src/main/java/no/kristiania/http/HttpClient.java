@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class HttpClient {
     private final int statusCode;
-    private HttpMessage httpMessage = new HttpMessage();
+    private HttpMessage httpMessage;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
@@ -16,18 +16,8 @@ public class HttpClient {
                 "\r\n";
         socket.getOutputStream().write(request.getBytes());
         
-        String[] statusLine = HttpMessage.readLine(socket).split(" ");
-        this.statusCode = Integer.parseInt(statusLine[1]);
-
-        String headerLine;
-        while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
-            int colonPos = headerLine.indexOf(':');
-            String headerField = headerLine.substring(0, colonPos);
-            String headerValue = headerLine.substring(colonPos+1).trim();
-            httpMessage.headerFields.put(headerField, headerValue);
-        }
-
-        httpMessage.messageBody = httpMessage.readBytes(socket, getContentLength());
+        httpMessage = new HttpMessage(socket);
+        this.statusCode = Integer.parseInt(httpMessage.startLine.split(" ")[1]);
     }
 
     public int getStatusCode() {
