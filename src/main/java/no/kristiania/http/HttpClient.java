@@ -7,8 +7,7 @@ import java.util.Map;
 
 public class HttpClient {
     private final int statusCode;
-    private final Map<String, String> headerFields = new HashMap<>();
-    private String messageBody;
+    private HttpMessage httpMessage = new HttpMessage();
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         Socket socket = new Socket(host, port);
@@ -27,10 +26,10 @@ public class HttpClient {
             int colonPos = headerLine.indexOf(':');
             String headerField = headerLine.substring(0, colonPos);
             String headerValue = headerLine.substring(colonPos+1).trim();
-            headerFields.put(headerField, headerValue);
+            httpMessage.headerFields.put(headerField, headerValue);
         }
 
-        this.messageBody = readBytes(socket, getContentLength());
+        httpMessage.messageBody = readBytes(socket, getContentLength());
     }
 
     private String readBytes(Socket socket, int contentLength) throws IOException {
@@ -57,7 +56,7 @@ public class HttpClient {
     }
 
     public String getHeader(String headerName) {
-        return headerFields.get(headerName);
+        return httpMessage.headerFields.get(headerName);
     }
 
     public int getContentLength() {
@@ -65,6 +64,6 @@ public class HttpClient {
     }
 
     public String getMessageBody() {
-        return messageBody;
+        return httpMessage.messageBody;
     }
 }
