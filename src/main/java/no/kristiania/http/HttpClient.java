@@ -2,8 +2,6 @@ package no.kristiania.http;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HttpClient {
     private final int statusCode;
@@ -18,37 +16,18 @@ public class HttpClient {
                 "\r\n";
         socket.getOutputStream().write(request.getBytes());
         
-        String[] statusLine = readLine(socket).split(" ");
+        String[] statusLine = HttpMessage.readLine(socket).split(" ");
         this.statusCode = Integer.parseInt(statusLine[1]);
 
         String headerLine;
-        while (!(headerLine = readLine(socket)).isBlank()) {
+        while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
             int colonPos = headerLine.indexOf(':');
             String headerField = headerLine.substring(0, colonPos);
             String headerValue = headerLine.substring(colonPos+1).trim();
             httpMessage.headerFields.put(headerField, headerValue);
         }
 
-        httpMessage.messageBody = readBytes(socket, getContentLength());
-    }
-
-    private String readBytes(Socket socket, int contentLength) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < contentLength; i++) {
-            buffer.append((char)socket.getInputStream().read());
-        }
-        return buffer.toString();
-    }
-
-    static String readLine(Socket socket) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        int c;
-        while ((c = socket.getInputStream().read()) != '\r') {
-            buffer.append((char)c);
-        }
-        int expectedNewline = socket.getInputStream().read();
-        assert expectedNewline == '\n';
-        return buffer.toString();
+        httpMessage.messageBody = httpMessage.readBytes(socket, getContentLength());
     }
 
     public int getStatusCode() {
