@@ -34,7 +34,8 @@ public class HttpServer {
     }
 
     private void handleClient(Socket clientSocket) throws IOException {
-        String[] requestLine = HttpMessage.readLine(clientSocket).split(" ");
+        HttpMessage httpMessage = new HttpMessage(clientSocket);
+        String[] requestLine = httpMessage.getStartLine().split(" ");
         String requestTarget = requestLine[1];
 
         int questionPos = requestTarget.indexOf('?');

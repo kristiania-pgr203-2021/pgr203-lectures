@@ -20,8 +20,9 @@ public class HttpMessage {
             String headerValue = headerLine.substring(colonPos+1).trim();
             headerFields.put(headerField, headerValue);
         }
-
-        messageBody = readBytes(socket, getContentLength());
+        if (headerFields.containsKey("Content-Length")) {
+            messageBody = readBytes(socket, getContentLength());
+        }
     }
 
     public String getHeader(String headerName) {
