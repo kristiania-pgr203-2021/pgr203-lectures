@@ -24,7 +24,7 @@ public class PersonnelServerTest {
     }
 
     @Test
-    void shouldPostNewPerson() {
+    void shouldPostNewPerson() throws IOException {
         server.setRoles(List.of("Boss", "Assistant"));
         PostHttpClient client = new PostHttpClient("localhost", server.getPort(), "/api/newPerson", "firstName=Test&lastName=Persson&role=2");
         assertEquals(200, client.getResponseCode());

@@ -1,11 +1,26 @@
 package no.kristiania.http;
 
+import java.io.IOException;
+import java.net.Socket;
+
 public class PostHttpClient {
-    public PostHttpClient(String localhost, int port, String requestTarget, String messageBody) {
-        
+    private final HttpMessage httpMessage;
+    private final int statusCode;
+
+    public PostHttpClient(String host, int port, String requestTarget, String messageBody) throws IOException {
+        Socket socket = new Socket(host, port);
+
+        String request = "GET " + requestTarget + " HTTP/1.1\r\n" +
+                "Host: " + host + "\r\n" +
+                "Connection: close\r\n" +
+                "\r\n";
+        socket.getOutputStream().write(request.getBytes());
+
+        httpMessage = new HttpMessage(socket);
+        this.statusCode = Integer.parseInt(httpMessage.getStartLine().split(" ")[1]);
     }
 
     public int getResponseCode() {
-        return 0;
+        return statusCode;
     }
 }
