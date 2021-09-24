@@ -32,4 +32,16 @@ public class PersonnelServerTest {
         assertEquals("Persson", person.getLastName());
         assertEquals("Assistant", person.getRole());
     }
+    
+    @Test
+    void shouldListPeople() throws IOException {
+        Person person = new Person();
+        person.setFirstName("Test");
+        person.setLastName("Persson");
+        person.setRole("Testperson");
+        server.getPeople().add(person);
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/people");
+        assertEquals("<p>Persson, Test (Testperson)</p>", client.getMessageBody());
+    }
 }
