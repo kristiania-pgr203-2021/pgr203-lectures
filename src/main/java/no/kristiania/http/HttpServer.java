@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class HttpServer {
     private final ServerSocket serverSocket;
     private Path rootDirectory;
     private List<String> roles;
+    private List<Person> people = new ArrayList<>();
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -125,5 +127,9 @@ public class HttpServer {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public List<Person> getPeople() {
+        return people;
     }
 }

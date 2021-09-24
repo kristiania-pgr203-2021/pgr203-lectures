@@ -22,4 +22,14 @@ public class PersonnelServerTest {
                 new HttpClient("localhost", server.getPort(), "/api/roleOptions").getMessageBody()
         );
     }
+
+    @Test
+    void shouldPostNewPerson() {
+        server.setRoles(List.of("Boss", "Assistant"));
+        PostHttpClient client = new PostHttpClient("localhost", server.getPort(), "/api/newPerson", "firstName=Test&lastName=Persson&role=2");
+        assertEquals(200, client.getResponseCode());
+        Person person = server.getPeople().get(0);
+        assertEquals("Persson", person.getLastName());
+        assertEquals("Assistant", person.getRole());
+    }
 }
