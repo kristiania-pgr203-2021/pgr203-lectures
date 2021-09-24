@@ -66,6 +66,8 @@ public class HttpServer {
 
             Person person = new Person();
             person.setLastName(parameters.get("lastName"));
+            int roleId = Integer.parseInt(parameters.get("role"));
+            person.setRole(roles.get(roleId - 1));
             people.add(person);
             
             respondWithContent(clientSocket, "ok", "text/html");

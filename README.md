@@ -34,5 +34,5 @@ HTTP request ser ut
 * [x] Process GET request for form
 * [x] Process JavaScript
 * [x] Package as executable jar
-* [ ] Refactor
-* [ ] Process POST request from form
+* [x] Refactor
+* [x] Process POST request from form
