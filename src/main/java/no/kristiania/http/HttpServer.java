@@ -61,6 +61,8 @@ public class HttpServer {
             String responseText = "<p>Hello " + yourName + "</p>";
 
             respondWithContent(clientSocket, responseText, "text/html");
+        } else if (fileTarget.equals("/api/newPerson")) {
+            respondWithContent(clientSocket, "ok", "text/html");
         } else if (fileTarget.equals("/api/roleOptions")) {
             String responseText = "";
             for (int i = 0, rolesSize = roles.size(); i < rolesSize; i++) {
