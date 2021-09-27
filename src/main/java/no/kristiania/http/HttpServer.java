@@ -77,12 +77,11 @@ public class HttpServer {
                 return;
             }
             
-            
-            
             String responseText = "File not found: " + requestTarget;
 
             String response = "HTTP/1.1 404 Not found\r\n" +
                     "Content-Length: " + responseText.length() + "\r\n" +
+                    "Connection: close\r\n" +
                     "\r\n" +
                     responseText;
             clientSocket.getOutputStream().write(response.getBytes());
