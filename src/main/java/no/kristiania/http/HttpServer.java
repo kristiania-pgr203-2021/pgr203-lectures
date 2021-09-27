@@ -16,7 +16,7 @@ public class HttpServer {
     private final ServerSocket serverSocket;
     private Path rootDirectory;
     private List<String> roles = new ArrayList<>();
-    private List<Person> people;
+    private List<Person> people = new ArrayList<>();
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -37,7 +37,8 @@ public class HttpServer {
     private void handleClient() throws IOException {
         Socket clientSocket = serverSocket.accept();
 
-        String[] requestLine = HttpMessage.readLine(clientSocket).split(" ");
+        HttpMessage httpMessage = new HttpMessage(clientSocket);
+        String[] requestLine = httpMessage.startLine.split(" ");
         String requestTarget = requestLine[1];
 
         int questionPos = requestTarget.indexOf('?');
@@ -59,6 +60,12 @@ public class HttpServer {
             String responseText = "<p>Hello " + yourName + "</p>";
 
             writeOkResponse(clientSocket, responseText, "text/html");
+        } else if (fileTarget.equals("/api/newPerson")) {
+            Map<String, String> queryMap = parseRequestParameters(httpMessage.messageBody);
+            Person person = new Person();
+            person.setLastName(queryMap.get("lastName"));
+            people.add(person);
+            writeOkResponse(clientSocket, "it is done", "text/html");
         } else if (fileTarget.equals("/api/roleOptions")) {
             String responseText = "";
 

@@ -13,7 +13,9 @@ public class HttpMessage {
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);
         readHeaders(socket);
-        messageBody = HttpMessage.readBytes(socket, getContentLength());
+        if (headerFields.containsKey("Content-Length")) {
+            messageBody = HttpMessage.readBytes(socket, getContentLength());
+        }
     }
 
     public int getContentLength() {
