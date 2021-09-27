@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,9 +11,16 @@
         <form action="/api/newPerson" method="post">
             <p><label>First name: <input type="text" name="firstName"></label></p>
             <p><label>Last name: <input type="text" name="lastName"></label></p>
-            <p><label>Role <select name="role"></select></label></p>
+            <p><label>Role <select name="role" id="roles"></select></label></p>
             <button>Submit</button>
         </form>
     </main>
 </body>
+<script>
+    fetch("/api/roleOptions").then(function (res) {
+        return res.text();
+    }).then(function(text) {
+        document.getElementById("roles").innerHTML = text;
+    });
+</script>
 </html>
