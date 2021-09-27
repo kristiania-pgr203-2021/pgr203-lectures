@@ -34,6 +34,7 @@ HTTP request ser ut
 * [x] styling
 * [x] handle more than one request
   * [ ] Feilhåndtering
+* [ ] GET requests with more than one field
 * [ ] Refactor -> HttpMessage class
 * [ ] Process POST request from form
   * [ ] URL encoding

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Person | Personnel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <h1>Add a new person</h1>
+
+        <form action="/api/newPerson" method="post">
+            <p><label>First name: <input type="text" name="firstName"></label></p>
+            <p><label>Last name: <input type="text" name="lastName"></label></p>
+            <p><label>Role <select name="role"></select></label></p>
+            <button>Submit</button>
+        </form>
+    </main>
+</body>
+</html>
