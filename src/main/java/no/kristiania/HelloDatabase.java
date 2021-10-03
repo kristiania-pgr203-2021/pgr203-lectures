@@ -14,10 +14,10 @@ public class HelloDatabase {
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("åneidu!");
 
-         listPeople(dataSource);
+         new HelloDatabase().listPeople(dataSource);
     }
 
-    private static void listPeople(PGSimpleDataSource dataSource) throws SQLException {
+    private void listPeople(PGSimpleDataSource dataSource) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
 
             try (PreparedStatement statement = connection.prepareStatement("select * from people")) {
