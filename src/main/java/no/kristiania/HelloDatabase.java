@@ -2,22 +2,29 @@ package no.kristiania;
 
 import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HelloDatabase {
+    private final DataSource dataSource;
+
+    public HelloDatabase(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public static void main(String[] args) throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setURL("jdbc:postgresql://localhost/person_db");
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("åneidu!");
 
-         new HelloDatabase().listPeople(dataSource);
+         new HelloDatabase(dataSource).listPeople();
     }
 
-    private void listPeople(PGSimpleDataSource dataSource) throws SQLException {
+    private void listPeople() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
 
             try (PreparedStatement statement = connection.prepareStatement("select * from people")) {
