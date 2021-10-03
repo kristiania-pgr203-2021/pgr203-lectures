@@ -4,7 +4,7 @@ Goal: Learn how to install the database and connect with IntelliJ
 
 ## Plan
 
-* [ ] IntelliJ and PostgreSQL
+* [x] IntelliJ and PostgreSQL
 * [ ] Hello database
 * [ ] Test: Retrieve saved person
 * [ ] Test: list people by last name
@@ -24,4 +24,5 @@ Goal: Learn how to install the database and connect with IntelliJ
    3. `insert into people (first_name, last_name) values ('Noen André', 'Persson')`
 6. Query data from table
    1. `select * from people where first_name = 'Test'`
-   2`select * from people where last_name = 'Persson'`
+   2. `select * from people where last_name = 'Persson'`
+   3. `select * from people where last_name ilike 'persso%'`
