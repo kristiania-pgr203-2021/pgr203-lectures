@@ -8,10 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class HelloDatabase {
+public class PersonDao {
     private final DataSource dataSource;
 
-    public HelloDatabase(DataSource dataSource) {
+    public PersonDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -21,7 +21,7 @@ public class HelloDatabase {
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("åneidu!");
 
-         new HelloDatabase(dataSource).listPeople();
+         new PersonDao(dataSource).listPeople();
     }
 
     private void listPeople() throws SQLException {
