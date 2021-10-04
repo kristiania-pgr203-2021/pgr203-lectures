@@ -8,7 +8,7 @@ Goal: Learn how to install the database and connect with IntelliJ
 * [x] Hello database
 * [x] Test: Retrieve saved person
   * Add dependency assertj
-* [ ] Test: list people by last name
+* [x] Test: list people by last name
 
 
 ## Database:

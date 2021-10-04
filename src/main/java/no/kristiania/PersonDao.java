@@ -20,7 +20,8 @@ public class PersonDao {
 
     public static void main(String[] args) throws SQLException {
         PGSimpleDataSource dataSource = createDataSource();
-        new PersonDao(dataSource).listPeople();
+        PersonDao personDao = new PersonDao(dataSource);
+        System.out.println(personDao.findByLastName("Persson"));
     }
 
     static PGSimpleDataSource createDataSource() {
@@ -29,20 +30,6 @@ public class PersonDao {
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("åneidu!");
         return dataSource;
-    }
-
-    private void listPeople() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-
-            try (PreparedStatement statement = connection.prepareStatement("select * from people")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
-                    }
-                }
-            }
-            
-        }
     }
 
     public void save(Person person) throws SQLException {
