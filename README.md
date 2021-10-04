@@ -55,6 +55,10 @@ This lecture covers HTML forms and how they interact with the server
 
 This lectures dives into how to change your code to improve the structure while keeping it working, refactoring HttpServer and adding support for POST requests.
 
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/06) 
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/06)
+
+
 ### Lecture 7: Database access
 
 This lecture covers `java.sql.Connection`, `java.sql.PreparedStatement` and `java.sql.ResultSet`
