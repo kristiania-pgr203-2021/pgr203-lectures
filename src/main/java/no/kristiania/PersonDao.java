@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDao {
@@ -65,16 +66,11 @@ public class PersonDao {
 
     public Person retrieve(Long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-
             try (PreparedStatement statement = connection.prepareStatement("select * from people where id = ?")) {
                 statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
-                        Person person = new Person();
-                        person.setId(rs.getLong("id"));
-                        person.setFirstName(rs.getString("first_name"));
-                        person.setLastName(rs.getString("last_name"));
-                        return person;
+                        return rowToObject(rs);
                     }
                     return null;
                 }
@@ -82,7 +78,26 @@ public class PersonDao {
         }
     }
 
-    public List<Person> findByLastName(String lastName) {
-        return null;
+    public List<Person> findByLastName(String lastName) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from people where last_name = ?")) {
+                statement.setString(1, lastName);
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<Person> people = new ArrayList<>();
+                    while (rs.next()) {
+                        people.add(rowToObject(rs));
+                    }
+                    return people;
+                }
+            }
+        }
+    }
+
+    private Person rowToObject(ResultSet rs) throws SQLException {
+        Person person = new Person();
+        person.setId(rs.getLong("id"));
+        person.setFirstName(rs.getString("first_name"));
+        person.setLastName(rs.getString("last_name"));
+        return person;
     }
 }
