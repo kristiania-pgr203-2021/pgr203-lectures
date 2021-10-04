@@ -46,9 +46,10 @@ public class PersonDao {
     public void save(Person person) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
 
-            String sql = "insert into people (first_name) values (?)";
+            String sql = "insert into people (first_name, last_name) values (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, person.getFirstName());
+                statement.setString(2, person.getLastName());
                 statement.executeUpdate();
 
                 try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -71,6 +72,7 @@ public class PersonDao {
                         Person person = new Person();
                         person.setId(rs.getLong("id"));
                         person.setFirstName(rs.getString("first_name"));
+                        person.setLastName(rs.getString("last_name"));
                         return person;
                     }
                     return null;
