@@ -26,6 +26,7 @@ class PersonDaoTest {
     private Person randomPerson() {
         Person person = new Person();
         person.setFirstName(pickOne("James", "Jane", "Johannes", "Jeff", "Jane", "Julie"));
+        person.setLastName(pickOne("Jameson", "Jones", "Williams", "Johnson"));
         return person;
     }
 

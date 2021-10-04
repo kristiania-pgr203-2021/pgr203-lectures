@@ -6,7 +6,7 @@ Goal: Learn how to install the database and connect with IntelliJ
 
 * [x] IntelliJ and PostgreSQL
 * [x] Hello database
-* [ ] Test: Retrieve saved person
+* [x] Test: Retrieve saved person
   * Add dependency assertj
 * [ ] Test: list people by last name
 
