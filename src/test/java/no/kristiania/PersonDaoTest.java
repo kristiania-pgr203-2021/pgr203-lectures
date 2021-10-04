@@ -18,6 +18,6 @@ class PersonDaoTest {
     }
 
     private Person randomPerson() {
-        return null;
+        return new Person();
     }
 }

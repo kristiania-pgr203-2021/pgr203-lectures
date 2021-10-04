@@ -43,6 +43,6 @@ public class PersonDao {
     }
 
     public Person retrieve(long id) {
-        return null;
+        return new Person();
     }
 }
