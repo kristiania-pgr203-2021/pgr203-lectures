@@ -16,12 +16,16 @@ public class PersonDao {
     }
 
     public static void main(String[] args) throws SQLException {
+        PGSimpleDataSource dataSource = createDataSource();
+        new PersonDao(dataSource).listPeople();
+    }
+
+    static PGSimpleDataSource createDataSource() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setURL("jdbc:postgresql://localhost/person_db");
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("åneidu!");
-
-         new PersonDao(dataSource).listPeople();
+        return dataSource;
     }
 
     private void listPeople() throws SQLException {
@@ -38,11 +42,32 @@ public class PersonDao {
         }
     }
 
-    public void save(Person person) {
+    public void save(Person person) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+
+            try (PreparedStatement statement = connection.prepareStatement("insert into people (first_name) values (?)")) {
+                statement.setString(1, person.getFirstName());
+                statement.executeUpdate();
+            }
+
+        }
         
     }
 
-    public Person retrieve(Long id) {
-        return new Person();
+    public Person retrieve(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+
+            try (PreparedStatement statement = connection.prepareStatement("select * from people")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    if (rs.next()) {
+                        Person person = new Person();
+                        person.setId(rs.getLong("id"));
+                        person.setFirstName(rs.getString("first_name"));
+                        return person;
+                    }
+                    return null;
+                }
+            }
+        }
     }
 }
