@@ -42,7 +42,7 @@ public class PersonDao {
         
     }
 
-    public Person retrieve(long id) {
+    public Person retrieve(Long id) {
         return new Person();
     }
 }
