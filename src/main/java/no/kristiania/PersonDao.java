@@ -37,4 +37,12 @@ public class PersonDao {
             
         }
     }
+
+    public void save(Person person) {
+        
+    }
+
+    public Person retrieve(long id) {
+        return null;
+    }
 }
