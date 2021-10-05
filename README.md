@@ -63,6 +63,9 @@ This lectures dives into how to change your code to improve the structure while 
 
 This lecture covers `java.sql.Connection`, `java.sql.PreparedStatement` and `java.sql.ResultSet`
 
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/07) 
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/07)
+
 ### Lecture 8: Design patterns
 
 This lecture covers the Data Access Object pattern and how to abstract your database code and your HTTP code
