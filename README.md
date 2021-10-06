@@ -2,8 +2,9 @@
 
 * [x] Installing postgresql
 * [x] Accessing postgreql fra IntelliJ
-* [ ] Test: retriving an inserted person from database
+* [ ] Access database from Java
   * Add dependency on Postgreql driver with maven
+* [ ] Test: retriving an inserted person from database
   * Add AssertJ testing library with maven 
 * [ ] Test: list people by last name
 
