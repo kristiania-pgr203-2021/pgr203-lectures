@@ -28,4 +28,11 @@ public class HelloDatabase {
         }
     }
 
+    public void save(Person person) {
+        
+    }
+
+    public Person retrieve(Long id) {
+        return null;
+    }
 }
