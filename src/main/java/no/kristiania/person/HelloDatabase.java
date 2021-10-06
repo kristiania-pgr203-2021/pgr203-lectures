@@ -46,7 +46,19 @@ public class HelloDatabase {
         this.person = person;
     }
 
-    public Person retrieve(Long id) {
+    public Person retrieve(long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from people where id = ?")) {
+                statement.setLong(1, id);
+                ResultSet rs = statement.executeQuery();
+                
+                if (rs.next()) {
+                    Person person = new Person();
+                    person.setFirstName(rs.getString("first_name"));
+                    return person;
+                }
+            }
+        }
         return person;
     }
 }
