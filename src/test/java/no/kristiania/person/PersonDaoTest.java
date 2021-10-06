@@ -13,7 +13,7 @@ public class PersonDaoTest {
 
     @Test
     void shouldRetrieveSavedPerson() throws SQLException {
-        HelloDatabase dao = new HelloDatabase(createDataSource());
+        PersonDao dao = new PersonDao(createDataSource());
 
         Person person = randomPerson();
         dao.save(person);
