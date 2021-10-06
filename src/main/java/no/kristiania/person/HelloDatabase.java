@@ -21,7 +21,7 @@ public class HelloDatabase {
 
                 try (ResultSet rs = statement.executeQuery()) {
                     while (rs.next()) {
-                        System.out.println(rs.getString(2));
+                        System.out.println(rs.getString("last_name"));
                     }
                 }
             }
