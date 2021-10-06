@@ -38,9 +38,13 @@ public class HelloDatabase {
 
     public void save(Person person) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("insert into people (first_name) values (?)")) {
+            try (PreparedStatement statement = connection.prepareStatement("insert into people (first_name) values (?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, person.getFirstName());
                 statement.executeUpdate();
+
+                ResultSet rs = statement.getGeneratedKeys();
+                rs.next();
+                person.setId(rs.getLong("id"));
             }
         }
         this.person = person;

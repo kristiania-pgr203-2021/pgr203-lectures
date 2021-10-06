@@ -18,6 +18,8 @@ public class PersonDaoTest {
         Person person = randomPerson();
         dao.save(person);
         assertThat(dao.retrieve(person.getId()))
+                .usingRecursiveComparison()
+                .ignoringFields("id")
                 .isEqualTo(person);
     }
 

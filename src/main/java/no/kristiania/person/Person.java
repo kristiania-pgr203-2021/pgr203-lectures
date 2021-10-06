@@ -19,4 +19,12 @@ public class Person {
     public String getFirstName() {
         return firstName;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                '}';
+    }
 }
