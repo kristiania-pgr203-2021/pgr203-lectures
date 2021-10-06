@@ -57,6 +57,7 @@ public class PersonDao {
                 
                 if (rs.next()) {
                     Person person = new Person();
+                    person.setId(rs.getLong("id"));
                     person.setFirstName(rs.getString("first_name"));
                     person.setLastName(rs.getString("last_name"));
                     return person;
