@@ -1,16 +1,23 @@
 package no.kristiania.people;
 
+import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Random;
 
-import static no.kristiania.people.PersonDao.createDataSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonDaoTest {
 
-    private final PersonDao dao = new PersonDao(createDataSource());
+    private final PersonDao dao = new PersonDao(testDataSource());
+
+    private DataSource testDataSource() {
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setUrl("jdbc:h2:mem:persondb");
+        return jdbcDataSource;
+    }
 
     @Test
     void shouldRetrieveSavedPerson() throws SQLException {
