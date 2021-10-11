@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDao {
@@ -47,18 +48,38 @@ public class PersonDao {
 
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
-                    
-                    Person person = new Person();
-                    person.setId(rs.getLong("id"));
-                    person.setFirstName(rs.getString("first_name"));
-                    person.setLastName(rs.getString("last_name"));
-                    return person;
+
+                    return mapFromResultSet(rs);
                 }
             }
         }
     }
 
-    public List<Person> listByLastName(String lastName) {
-        return null;
+    private Person mapFromResultSet(ResultSet rs) throws SQLException {
+        Person person = new Person();
+        person.setId(rs.getLong("id"));
+        person.setFirstName(rs.getString("first_name"));
+        person.setLastName(rs.getString("last_name"));
+        return person;
+    }
+
+    public List<Person> listByLastName(String lastName) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "select * from people where last_name = ?"
+            )) {
+                statement.setString(1, lastName);
+
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<Person> people = new ArrayList<>();
+
+                    while (rs.next()) {
+                        people.add(mapFromResultSet(rs));
+                    }
+
+                    return people;
+                }
+            }
+        }
     }
 }
