@@ -20,6 +20,11 @@ public class OrganizationDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(organization);
     }
+    
+    @Test
+    void shouldNotReturnMissingOrganization() throws SQLException {
+        assertThat(dao.retrieve(-1)).isNull();
+    }
 
     private Organization exampleOrganization() {
         Organization organization = new Organization();

@@ -33,20 +33,26 @@ public class OrganizationDao {
         
     }
     
-    public Organization retrieve(Long id) throws SQLException {
+    public Organization retrieve(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from organizations where id = ?")) {
                 statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-                    
-                    Organization organization = new Organization();
-                    organization.setId(rs.getLong("id"));
-                    organization.setName(rs.getString("name"));
-                    organization.setSector(rs.getString("sector"));
-                    return organization;
+                    if (rs.next()) {
+                        return mapFromResultSet(rs);
+                    } else {
+                        return null;
+                    }
                 }
             }
         }
+    }
+
+    private Organization mapFromResultSet(ResultSet rs) throws SQLException {
+        Organization organization = new Organization();
+        organization.setId(rs.getLong("id"));
+        organization.setName(rs.getString("name"));
+        organization.setSector(rs.getString("sector"));
+        return organization;
     }
 }

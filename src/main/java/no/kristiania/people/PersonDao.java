@@ -45,8 +45,11 @@ public class PersonDao {
             try (PreparedStatement statement = connection.prepareStatement("select * from people where id = ?")) {
                 statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
-                    rs.next();
-                    return mapFromResultSet(rs);
+                    if (rs.next()) {
+                        return mapFromResultSet(rs);
+                    } else {
+                        return null;
+                    }
                 }
             }
         }

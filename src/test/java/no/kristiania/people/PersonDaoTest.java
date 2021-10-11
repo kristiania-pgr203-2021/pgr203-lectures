@@ -22,6 +22,11 @@ public class PersonDaoTest {
     }
 
     @Test
+    void shouldNotRetrieveMissingPerson() throws SQLException {
+        assertThat(dao.retrieve(-1)).isNull();
+    }
+
+    @Test
     void shouldListPeopleByLastName() throws SQLException {
         Person matchingPerson = examplePerson();
         matchingPerson.setLastName("Testerson");
