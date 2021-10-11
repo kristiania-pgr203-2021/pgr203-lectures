@@ -1,5 +1,7 @@
 package no.kristiania.people;
 
+import org.postgresql.ds.PGSimpleDataSource;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PersonDao {
     private final DataSource dataSource;
@@ -69,5 +72,20 @@ public class PersonDao {
         person.setFirstName(rs.getString("first_name"));
         person.setLastName(rs.getString("last_name"));
         return person;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        System.out.print("Specify last name: ");
+        Scanner scanner = new Scanner(System.in);
+        String lastName = scanner.nextLine().trim();
+        System.out.println(new PersonDao(createDataSource()).listByLastName(lastName));
+    }
+
+    private static DataSource createDataSource() {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost/person_db");
+        dataSource.setUser("person_dbuser");
+        dataSource.setPassword("*****");
+        return dataSource;
     }
 }
