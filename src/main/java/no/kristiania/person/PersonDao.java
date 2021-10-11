@@ -1,5 +1,6 @@
 package no.kristiania.person;
 
+import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -25,6 +26,10 @@ public class PersonDao {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("*****");
+
+        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
+
         return dataSource;
     }
 
