@@ -9,7 +9,6 @@ import java.sql.Statement;
 
 public class PersonDao {
     private final DataSource dataSource;
-    private Person person;
 
     public PersonDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -33,7 +32,6 @@ public class PersonDao {
             }
 
         }
-        this.person = person;
     }
 
     public Person retrieve(long id) throws SQLException {
@@ -43,12 +41,12 @@ public class PersonDao {
                 try (ResultSet rs = statement.executeQuery()) {
                     rs.next();
                     Person person = new Person();
+                    person.setId(rs.getLong("id"));
                     person.setFirstName(rs.getString("first_name"));
                     person.setLastName(rs.getString("last_name"));
+                    return person;
                 }
             }
         }
-        
-        return this.person;
     }
 }
