@@ -18,12 +18,15 @@ public class PersonDaoTest {
         dao.save(person);
         
         assertThat(dao.retrieve(person.getId()))
+                .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(person);
     }
+    
 
     private Person examplePerson() {
-        return new Person();
+        Person person = new Person();
+        return person;
     }
 
     private DataSource createDataSource() {
