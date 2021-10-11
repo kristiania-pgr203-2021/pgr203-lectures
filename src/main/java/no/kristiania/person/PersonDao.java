@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class PersonDao {
 
@@ -55,5 +56,9 @@ public class PersonDao {
                 }
             }
         }
+    }
+
+    public List<Person> listByLastName(String lastName) {
+        return null;
     }
 }
