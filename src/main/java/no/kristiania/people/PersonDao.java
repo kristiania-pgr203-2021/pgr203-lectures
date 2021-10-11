@@ -1,5 +1,6 @@
 package no.kristiania.people;
 
+import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -54,8 +55,9 @@ public class PersonDao {
     public List<Person> listByLastName(String lastName) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "select * from people where last_name = '" + lastName + "'"
+                    "select * from people where last_name = ?"
             )) {
+                statement.setString(1, lastName);
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Person> result = new ArrayList<>();
                     while (rs.next()) {
@@ -82,11 +84,15 @@ public class PersonDao {
         System.out.println(new PersonDao(createDataSource()).listByLastName(lastName));
     }
 
-    private static DataSource createDataSource() {
+    static DataSource createDataSource() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl("jdbc:postgresql://localhost/person_db");
         dataSource.setUser("person_dbuser");
         dataSource.setPassword("*****");
+
+        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
+        
         return dataSource;
     }
 }

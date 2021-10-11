@@ -1,13 +1,11 @@
 package no.kristiania.people;
 
 import org.junit.jupiter.api.Test;
-import org.postgresql.ds.PGSimpleDataSource;
-
-import javax.sql.DataSource;
 
 import java.sql.SQLException;
 import java.util.Random;
 
+import static no.kristiania.people.PersonDao.createDataSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonDaoTest {
@@ -55,13 +53,5 @@ public class PersonDaoTest {
 
     private static String pickOne(String... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
-    }
-
-    private DataSource createDataSource() {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost/person_db");
-        dataSource.setUser("person_dbuser");
-        dataSource.setPassword("*****");
-        return dataSource;
     }
 }
