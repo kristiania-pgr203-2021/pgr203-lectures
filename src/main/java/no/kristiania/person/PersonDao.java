@@ -10,7 +10,6 @@ import java.sql.Statement;
 public class PersonDao {
 
     private final DataSource dataSource;
-    private Person person;
 
     public PersonDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -34,7 +33,6 @@ public class PersonDao {
                 }
             }
         }
-        this.person = person;
     }
 
     public Person retrieve(long id) throws SQLException {
