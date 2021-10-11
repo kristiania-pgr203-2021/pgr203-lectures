@@ -1,5 +1,11 @@
 package no.kristiania.people;
 
+import org.junit.jupiter.api.Test;
+
+import javax.sql.DataSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PersonDaoTest {
     
     @Test
@@ -9,7 +15,15 @@ public class PersonDaoTest {
         dao.save(person);
         
         assertThat(dao.retrieve(person.getId()))
-            // TODO
-        ;
+                .usingRecursiveComparison()
+                .isEqualTo(person);
+    }
+
+    private Person examplePerson() {
+        return new Person();
+    }
+
+    private DataSource createDataSource() {
+        return null;
     }
 }
