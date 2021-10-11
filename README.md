@@ -68,7 +68,10 @@ This lecture covers `java.sql.Connection`, `java.sql.PreparedStatement` and `jav
 
 ### Lecture 8: Design patterns
 
-This lecture covers the Data Access Object pattern and how to abstract your database code and your HTTP code
+This lecture covers the Data Access Object pattern and how handle database changes and separating the test database from the real database
+
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/08) 
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/08)
 
 ### Lecture 9: Backend design
 
