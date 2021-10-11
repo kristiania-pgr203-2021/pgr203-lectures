@@ -4,5 +4,7 @@
 * [x] person dao should list people by name
 * [x] Flyway database migrations
 * [x] H2 In-memory database
-* [ ] organization dao should retrieve saved organization
+* [x] organization dao should retrieve saved organization
+* [ ] missing rows should not be returned
+* [ ] extract superclass
 
