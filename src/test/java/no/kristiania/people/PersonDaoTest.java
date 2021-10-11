@@ -1,5 +1,6 @@
 package no.kristiania.people;
 
+import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +15,10 @@ public class PersonDaoTest {
     private final PersonDao dao = new PersonDao(testDataSource());
 
     private DataSource testDataSource() {
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setUrl("jdbc:h2:mem:persondb");
-        return jdbcDataSource;
+        JdbcDataSource database = new JdbcDataSource();
+        database.setUrl("jdbc:h2:mem:persondb");
+        Flyway.configure().dataSource(database).load().migrate();
+        return database;
     }
 
     @Test
