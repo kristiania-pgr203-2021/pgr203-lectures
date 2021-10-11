@@ -1,8 +1,5 @@
 package no.kristiania.people;
 
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PersonDao {
-    private final DataSource dataSource;
+public class PersonDao extends AbstractDao {
 
     public PersonDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     public void save(Person person) throws SQLException {
@@ -41,18 +37,7 @@ public class PersonDao {
     }
 
     public Person retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from people where id = ?")) {
-                statement.setLong(1, id);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return mapFromResultSet(rs);
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        }
+        return retrieveById(id, "select * from people where id = ?");
     }
 
     public List<Person> listByLastName(String lastName) throws SQLException {
@@ -72,7 +57,8 @@ public class PersonDao {
         }
     }
 
-    private Person mapFromResultSet(ResultSet rs) throws SQLException {
+    @Override
+    protected Person mapFromResultSet(ResultSet rs) throws SQLException {
         Person person = new Person();
         person.setId(rs.getLong("id"));
         person.setFirstName(rs.getString("first_name"));
@@ -87,15 +73,4 @@ public class PersonDao {
         System.out.println(new PersonDao(createDataSource()).listByLastName(lastName));
     }
 
-    static DataSource createDataSource() {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost/person_db");
-        dataSource.setUser("person_dbuser");
-        dataSource.setPassword("*****");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-        
-        return dataSource;
-    }
 }
