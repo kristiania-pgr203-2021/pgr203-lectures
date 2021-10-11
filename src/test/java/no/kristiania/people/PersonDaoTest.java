@@ -16,7 +16,7 @@ public class PersonDaoTest {
 
     private DataSource testDataSource() {
         JdbcDataSource database = new JdbcDataSource();
-        database.setUrl("jdbc:h2:mem:persondb");
+        database.setUrl("jdbc:h2:mem:persondb;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(database).load().migrate();
         return database;
     }
