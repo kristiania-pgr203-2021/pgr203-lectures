@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PersonDao extends AbstractDao {
+public class PersonDao extends AbstractDao<Person> {
 
     public PersonDao(DataSource dataSource) {
         super(dataSource);

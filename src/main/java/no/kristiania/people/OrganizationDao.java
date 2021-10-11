@@ -7,11 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrganizationDao {
-    private final DataSource dataSource;
-
+public class OrganizationDao extends AbstractDao<Organization> {
     public OrganizationDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     public void save(Organization organization) throws SQLException {
@@ -34,21 +32,11 @@ public class OrganizationDao {
     }
     
     public Organization retrieve(long id) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from organizations where id = ?")) {
-                statement.setLong(1, id);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return mapFromResultSet(rs);
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        }
+        return retrieveById(id, "select * from organizations where id = ?");
     }
 
-    private Organization mapFromResultSet(ResultSet rs) throws SQLException {
+    @Override
+    protected Organization mapFromResultSet(ResultSet rs) throws SQLException {
         Organization organization = new Organization();
         organization.setId(rs.getLong("id"));
         organization.setName(rs.getString("name"));

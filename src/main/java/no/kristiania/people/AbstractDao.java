@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class AbstractDao {
+public abstract class AbstractDao<T> {
     protected final DataSource dataSource;
 
     public AbstractDao(DataSource dataSource) {
@@ -28,7 +28,7 @@ public abstract class AbstractDao {
         return dataSource;
     }
 
-    protected Person retrieveById(long id, String sql) throws SQLException {
+    protected T retrieveById(long id, String sql) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setLong(1, id);
@@ -43,5 +43,5 @@ public abstract class AbstractDao {
         }
     }
 
-    protected abstract Person mapFromResultSet(ResultSet rs) throws SQLException;
+    protected abstract T mapFromResultSet(ResultSet rs) throws SQLException;
 }
