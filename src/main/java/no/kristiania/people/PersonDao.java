@@ -53,8 +53,9 @@ public class PersonDao {
 
     public List<Person> listByLastName(String lastName) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from people where last_name = ?")) {
-                statement.setString(1, lastName);
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "select * from people where last_name = '" + lastName + "'"
+            )) {
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<Person> result = new ArrayList<>();
                     while (rs.next()) {
