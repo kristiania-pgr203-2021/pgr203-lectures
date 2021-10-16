@@ -75,7 +75,10 @@ This lecture covers the Data Access Object pattern and how handle database chang
 
 ### Lecture 9: Backend design
 
-This lecture covers how to structure the code on your server
+This lecture covers how to structure the code on your server to integrate the HTTP server with JDBC-code
+
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/09) 
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/09)
 
 ### Lecture 10: Programmer productivity
 
