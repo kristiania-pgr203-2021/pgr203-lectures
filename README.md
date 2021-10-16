@@ -49,7 +49,8 @@ HTTP request ser ut
 * [x] CreatePersonController should create people
 * [x] ListPersonController should list people
 * [x] Make executable JAR
-* [ ] Serve HTML from inside jar-file
+* [x] Serve HTML from inside jar-file
+* [ ] properties-file!
 
 ## Omitted on purpose - your tasks at exam
 

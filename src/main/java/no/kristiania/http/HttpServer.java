@@ -1,13 +1,12 @@
 package no.kristiania.http;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +14,6 @@ import java.util.Map;
 public class HttpServer {
 
     private final ServerSocket serverSocket;
-    private Path rootDirectory;
-    private List<String> roles = new ArrayList<>();
-    private List<Person> people = new ArrayList<>();
     private Map<String, HttpController> controllers = new HashMap<>();
 
     public HttpServer(int serverPort) throws IOException {
@@ -69,8 +65,11 @@ public class HttpServer {
 
             writeOkResponse(clientSocket, responseText, "text/html");
         } else {
-            if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
-                String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
+            InputStream fileStream = getClass().getResourceAsStream(fileTarget);
+            if (fileStream != null) {
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                fileStream.transferTo(buffer);
+                String responseText = buffer.toString();
 
                 String contentType = "text/plain";
                 if (requestTarget.endsWith(".html")) {
@@ -102,25 +101,11 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        HttpServer httpServer = new HttpServer(1962);
-        httpServer.setRoles(List.of("Student", "Teaching assistant", "Teacher"));
-        httpServer.setRoot(Paths.get("."));
+        new HttpServer(1962);
     }
 
     public int getPort() {
         return serverSocket.getLocalPort();
-    }
-
-    public void setRoot(Path rootDirectory) {
-        this.rootDirectory = rootDirectory;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public List<Person> getPeople() {
-        return people;
     }
 
     public void addController(String path, HttpController controller) {

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,8 +59,6 @@ class HttpServerTest {
 
     @Test
     void shouldServeFiles() throws IOException {
-        server.setRoot(Paths.get("target/test-classes"));
-        
         String fileContent = "A file created at " + LocalTime.now();
         Files.write(Paths.get("target/test-classes/example-file.txt"), fileContent.getBytes());
         
@@ -72,8 +69,6 @@ class HttpServerTest {
 
     @Test
     void shouldUseFileExtensionForContentType() throws IOException {
-        server.setRoot(Paths.get("target/test-classes"));
-
         String fileContent = "<p>Hello</p>";
         Files.write(Paths.get("target/test-classes/example-file.html"), fileContent.getBytes());
 

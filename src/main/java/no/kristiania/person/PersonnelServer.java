@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class PersonnelServer {
     private static final Logger logger = LoggerFactory.getLogger(PersonnelServer.class);
     
     public static void main(String[] args) throws IOException {
         HttpServer server = new HttpServer(8080);
-        server.setRoot(Paths.get("target/classes"));
         
         DataSource dataSource = createDataSource();
         server.addController("/api/roleOptions", new RoleOptionsController(new RoleDao(dataSource)));
