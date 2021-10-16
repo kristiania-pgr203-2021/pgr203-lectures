@@ -82,18 +82,6 @@ class HttpServerTest {
     }
 
     @Test
-    void shouldReturnRolesFromServer() throws IOException {
-        server.setRoles(List.of("Teacher", "Student"));
-        
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
-        assertEquals(
-                "<option value=1>Teacher</option><option value=2>Student</option>",
-                client.getMessageBody()
-        );
-    }
-
-
-    @Test
     void shouldCreateNewPerson() throws IOException {
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",

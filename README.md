@@ -42,7 +42,7 @@ HTTP request ser ut
 
 ## Lecture 9:
 
-* [ ] RoleDaoTest should list roles
+* [x] RoleDaoTest should list roles
 * [ ] RoleController should list roles
 * [ ] PersonDaoTest should retrieve saved person
 * [ ] PersonDaoTest should list people
