@@ -54,4 +54,18 @@ public class PersonnelServerTest {
                 .contains("Persson");
     }
 
+    @Test
+    void shouldListPeople() throws SQLException, IOException {
+        PersonDao personDao = new PersonDao(TestData.createDataSource());
+        
+        Person person = new Person();
+        person.setFirstName("Noen André");
+        person.setLastName("Persson");
+        personDao.save(person);
+        
+        server.addController("/api/people", new ListPeopleController(personDao));
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/people");
+        assertThat(client.getMessageBody()).contains("Noen André Persson");
+    }
+    
 }
