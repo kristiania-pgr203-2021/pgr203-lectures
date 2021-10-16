@@ -18,7 +18,7 @@ public class RoleDaoTest {
         String roleTwo = "role-" + UUID.randomUUID();
         dao.save(roleTwo);
         
-        assertThat(dao.list())
+        assertThat(dao.listAll())
                 .contains(roleOne, roleTwo);
     }
 }

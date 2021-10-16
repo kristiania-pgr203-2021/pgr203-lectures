@@ -15,7 +15,7 @@ public class RoleOptionsController implements HttpController {
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException {
         String messageContent = "";
-        for (String role : roleDao.list()) {
+        for (String role : roleDao.listAll()) {
             messageContent += "<option>" + role + "</option>";
         }
         return new HttpMessage("HTTP/1.1 200 OK", messageContent);

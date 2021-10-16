@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class PersonDao extends AbstractDao<Person> {
     public PersonDao(DataSource dataSource) {
@@ -43,5 +44,10 @@ public class PersonDao extends AbstractDao<Person> {
 
     public Person retrieve(long id) throws SQLException {
         return super.retrieve("SELECT * FROM people WHERE id = ?", id);
+    }
+
+    @Override
+    public List<Person> listAll() throws SQLException {
+        return null;
     }
 }

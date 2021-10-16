@@ -28,7 +28,5 @@ public abstract class AbstractDao<T> {
 
     abstract protected T rowToObject(ResultSet rs) throws SQLException;
 
-    public List<T> listAll() {
-        return null;
-    }
+    public abstract List<T> listAll() throws SQLException;
 }
