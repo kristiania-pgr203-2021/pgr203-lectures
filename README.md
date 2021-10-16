@@ -44,7 +44,7 @@ HTTP request ser ut
 
 * [x] RoleDaoTest should list roles
 * [x] RoleController should list roles
-* [ ] PersonDaoTest should retrieve saved person
+* [x] PersonDaoTest should retrieve saved person
 * [ ] PersonDaoTest should list people
 * [ ] CreatePersonController should create people
 * [ ] ListPersonController should list people

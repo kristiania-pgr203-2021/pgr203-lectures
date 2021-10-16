@@ -9,9 +9,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PersonDao extends AbstractDao {
+public class PersonDao extends AbstractDao<Person> {
     public PersonDao(DataSource dataSource) {
         super(dataSource);
+    }
+
+    @Override
+    protected Person rowToObject(ResultSet rs) throws SQLException {
+        Person person = new Person();
+        person.setId(rs.getLong("id"));
+        person.setFirstName(rs.getString("first_name"));
+        person.setLastName(rs.getString("last_name"));
+        return person;
     }
 
     public void save(Person person) throws SQLException {
@@ -32,7 +41,7 @@ public class PersonDao extends AbstractDao {
         }
     }
 
-    public Person retrieve(long id) {
-        return null;
+    public Person retrieve(long id) throws SQLException {
+        return super.retrieve("SELECT * FROM people WHERE id = ?", id);
     }
 }

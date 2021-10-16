@@ -8,9 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleDao extends AbstractDao {
+public class RoleDao extends AbstractDao<String> {
     public RoleDao(DataSource dataSource) {
         super(dataSource);
+    }
+
+    @Override
+    protected String rowToObject(ResultSet rs) throws SQLException {
+        return rs.getString("name");
     }
 
     public void save(String role) throws SQLException {
@@ -28,7 +33,7 @@ public class RoleDao extends AbstractDao {
                 try (ResultSet rs = statement.executeQuery()) {
                     ArrayList<String> result = new ArrayList<>();
                     while (rs.next()) {
-                        result.add(rs.getString("name"));
+                        result.add(rowToObject(rs));
                     }
                     return result;
                 }
