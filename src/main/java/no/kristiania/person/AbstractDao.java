@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDao<T> {
@@ -29,4 +30,18 @@ public abstract class AbstractDao<T> {
     abstract protected T rowToObject(ResultSet rs) throws SQLException;
 
     public abstract List<T> listAll() throws SQLException;
+
+    protected List<T> listAll(String sql) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    ArrayList<T> result = new ArrayList<>();
+                    while (rs.next()) {
+                        result.add(rowToObject(rs));
+                    }
+                    return result;
+                }
+            }
+        }
+    }
 }

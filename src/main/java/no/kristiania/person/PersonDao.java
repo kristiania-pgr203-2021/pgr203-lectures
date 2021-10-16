@@ -48,6 +48,6 @@ public class PersonDao extends AbstractDao<Person> {
 
     @Override
     public List<Person> listAll() throws SQLException {
-        return null;
+        return super.listAll("SELECT * FROM people");
     }
 }

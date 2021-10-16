@@ -29,17 +29,7 @@ public class RoleDao extends AbstractDao<String> {
 
     @Override
     public List<String> listAll() throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from roles")) {
-                try (ResultSet rs = statement.executeQuery()) {
-                    ArrayList<String> result = new ArrayList<>();
-                    while (rs.next()) {
-                        result.add(rowToObject(rs));
-                    }
-                    return result;
-                }
-            }
-        }
+        return super.listAll("SELECT * FROM roles");
     }
 
     public void deleteAll() throws SQLException {
