@@ -19,6 +19,15 @@ public class HttpMessage {
         }
     }
 
+    public HttpMessage(String startLine, String messageBody) {
+        this.startLine = startLine;
+        headerFields.putAll(Map.of(
+                "Content-Length", String.valueOf(messageBody.length()), 
+                "Connection", "close"
+        ));
+        this.messageBody = messageBody;
+    }
+
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
     }
@@ -56,7 +65,16 @@ public class HttpMessage {
         return buffer.toString();
     }
 
-    public void writeTo(OutputStream outputStream) {
-        
+    public void writeTo(OutputStream outputStream) throws IOException {
+        outputStream.write(startLine.getBytes());
+        outputStream.write("\r\n".getBytes());
+        for (String headerName : headerFields.keySet()) {
+            outputStream.write(headerName.getBytes());
+            outputStream.write(": ".getBytes());
+            outputStream.write(headerFields.get(headerName).getBytes());
+            outputStream.write("\r\n".getBytes());
+        }
+        outputStream.write("\r\n".getBytes());
+        outputStream.write(messageBody.getBytes());
     }
 }

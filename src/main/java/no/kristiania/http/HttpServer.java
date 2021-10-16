@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,12 +33,12 @@ public class HttpServer {
             while (true) {
                 handleClient();
             }
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void handleClient() throws IOException {
+    private void handleClient() throws IOException, SQLException {
         Socket clientSocket = serverSocket.accept();
 
         HttpMessage httpMessage = new HttpMessage(clientSocket);
