@@ -59,3 +59,5 @@ HTTP request ser ut
 * [ ] AbstractDao for insert and update
 * [ ] Updating data (HTML, JavaScript and Controller)
 * [ ] POST and GET with same URL (/api/people)
+* [ ] 500 on exception
+* [ ] http://localhost:8080 should return index.html
