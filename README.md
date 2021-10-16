@@ -33,9 +33,29 @@ HTTP request ser ut
 
 * [x] styling
 * [x] handle more than one request
-  * [ ] Feilhåndtering
-* [ ] GET requests with more than one field
-* [ ] Refactor -> HttpMessage class
-* [ ] Process POST request from form
+  * [x] Feilhåndtering
+* [x] GET requests with more than one field
+* [x] Refactor -> HttpMessage class
+* [x] Process POST request from form
   * [ ] URL encoding
+
+
+## Lecture 9:
+
+* [ ] RoleDaoTest should list roles
+* [ ] RoleController should list roles
+* [ ] PersonDaoTest should retrieve saved person
+* [ ] PersonDaoTest should list people
+* [ ] CreatePersonController should create people
+* [ ] ListPersonController should list people
 * [ ] Make executable JAR
+* [ ] Serve HTML from inside jar-file
+
+## Omitted on purpose - your tasks at exam
+
+* [ ] URL encoding (readBytes has a fundamental flaw)
+* [ ] 303 See Other
+* [ ] Set-Cookie / Cookie headers
+* [ ] AbstractDao for insert and update
+* [ ] Updating data (HTML, JavaScript and Controller)
+* [ ] POST and GET with same URL (/api/people)
