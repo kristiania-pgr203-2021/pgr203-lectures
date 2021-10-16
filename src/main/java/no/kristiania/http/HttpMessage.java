@@ -1,6 +1,7 @@
 package no.kristiania.http;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,5 +54,9 @@ public class HttpMessage {
         int expectedNewline = socket.getInputStream().read();
         assert expectedNewline == '\n';
         return buffer.toString();
+    }
+
+    public void writeTo(OutputStream outputStream) {
+        
     }
 }

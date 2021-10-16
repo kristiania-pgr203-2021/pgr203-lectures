@@ -19,6 +19,7 @@ public class HttpServer {
     private Path rootDirectory;
     private List<String> roles = new ArrayList<>();
     private List<Person> people = new ArrayList<>();
+    private Map<String, HttpController> controllers = new HashMap<>();
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -51,6 +52,12 @@ public class HttpServer {
             query = requestTarget.substring(questionPos+1);
         } else {
             fileTarget = requestTarget;
+        }
+        
+        if (controllers.containsKey(fileTarget)) {
+            HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
+            response.writeTo(clientSocket.getOutputStream());
+            return;
         }
 
         if (fileTarget.equals("/hello")) {
@@ -145,6 +152,6 @@ public class HttpServer {
     }
 
     public void addController(String path, HttpController controller) {
-        
+        controllers.put(path, controller);
     }
 }
