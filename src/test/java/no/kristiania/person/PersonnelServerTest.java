@@ -1,12 +1,15 @@
 package no.kristiania.person;
 
 import no.kristiania.http.HttpClient;
+import no.kristiania.http.HttpPostClient;
 import no.kristiania.http.HttpServer;
+import no.kristiania.http.Person;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonnelServerTest {
@@ -33,5 +36,22 @@ public class PersonnelServerTest {
         );
     }
 
+    @Test
+    void shouldCreateNewPerson() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.createDataSource());
+        server.addController("/api/newPerson", new CreatePersonController(personDao));
+        
+        HttpPostClient postClient = new HttpPostClient(
+                "localhost",
+                server.getPort(),
+                "/api/newPerson",
+                "lastName=Persson&firstName=Test"
+        );
+        assertEquals(200, postClient.getStatusCode());
+        
+        assertThat(personDao.listAll())
+                .extracting(Person::getLastName)
+                .contains("Persson");
+    }
 
 }
