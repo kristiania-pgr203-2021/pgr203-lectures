@@ -1,5 +1,7 @@
 package no.kristiania.http;
 
+import no.kristiania.person.RoleOptionsController;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -140,5 +142,9 @@ public class HttpServer {
 
     public List<Person> getPeople() {
         return people;
+    }
+
+    public void addController(String path, HttpController controller) {
+        
     }
 }
