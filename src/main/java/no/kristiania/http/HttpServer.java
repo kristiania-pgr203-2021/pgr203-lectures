@@ -68,21 +68,6 @@ public class HttpServer {
             String responseText = "<p>Hello " + yourName + "</p>";
 
             writeOkResponse(clientSocket, responseText, "text/html");
-        } else if (fileTarget.equals("/api/newPerson")) {
-            Map<String, String> queryMap = HttpMessage.parseRequestParameters(httpMessage.messageBody);
-            Person person = new Person();
-            person.setLastName(queryMap.get("lastName"));
-            people.add(person);
-            writeOkResponse(clientSocket, "it is done", "text/html");
-        } else if (fileTarget.equals("/api/roleOptions")) {
-            String responseText = "";
-
-            int value = 1;
-            for (String role : roles) {
-                responseText += "<option value=" + (value++) + ">" + role + "</option>";
-            }
-
-            writeOkResponse(clientSocket, responseText, "text/html");
         } else {
             if (rootDirectory != null && Files.exists(rootDirectory.resolve(fileTarget.substring(1)))) {
                 String responseText = Files.readString(rootDirectory.resolve(fileTarget.substring(1)));
