@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public abstract class AbstractDao<T> {
     protected final DataSource dataSource;
@@ -26,4 +27,8 @@ public abstract class AbstractDao<T> {
     }
 
     abstract protected T rowToObject(ResultSet rs) throws SQLException;
+
+    public List<T> listAll() {
+        return null;
+    }
 }
