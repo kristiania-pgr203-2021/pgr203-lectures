@@ -15,7 +15,7 @@ public class PersonnelServer {
     
     public static void main(String[] args) throws IOException {
         HttpServer server = new HttpServer(8080);
-        server.setRoot(Paths.get("."));
+        server.setRoot(Paths.get("target/classes"));
         
         DataSource dataSource = createDataSource();
         server.addController("/api/roleOptions", new RoleOptionsController(new RoleDao(dataSource)));
