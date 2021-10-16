@@ -33,6 +33,17 @@ public class HttpMessage {
         headerFields.put("Connection", "close");
     }
 
+    public static Map<String, String> parseRequestParameters(String query) {
+        Map<String, String> queryMap = new HashMap<>();
+        for (String queryParameter : query.split("&")) {
+            int equalsPos = queryParameter.indexOf('=');
+            String parameterName = queryParameter.substring(0, equalsPos);
+            String parameterValue = queryParameter.substring(equalsPos+1);
+            queryMap.put(parameterName, parameterValue);
+        }
+        return queryMap;
+    }
+
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
     }

@@ -46,7 +46,7 @@ HTTP request ser ut
 * [x] RoleController should list roles
 * [x] PersonDaoTest should retrieve saved person
 * [x] PersonDaoTest should list people
-* [ ] CreatePersonController should create people
+* [x] CreatePersonController should create people
 * [ ] ListPersonController should list people
 * [ ] Make executable JAR
 * [ ] Serve HTML from inside jar-file
