@@ -35,4 +35,12 @@ public class RoleDao extends AbstractDao {
             }
         }
     }
+
+    public void deleteAll() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("delete from roles")) {
+                statement.executeUpdate();
+            }
+        }
+    }
 }

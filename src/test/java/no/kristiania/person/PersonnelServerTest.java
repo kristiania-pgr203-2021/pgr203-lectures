@@ -19,6 +19,7 @@ public class PersonnelServerTest {
     @Test
     void shouldListRolesFromDatabase() throws IOException, SQLException {
         RoleDao roleDao = new RoleDao(TestData.createDataSource());
+        roleDao.deleteAll();
         roleDao.save("Assistant");
         roleDao.save("Student");
         roleDao.save("Teacher");
@@ -27,7 +28,7 @@ public class PersonnelServerTest {
 
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
         assertEquals(
-                "<option value=1>Assistant</option><option value=2>Student</option><option value=3>Teacher</option>",
+                "<option>Assistant</option><option>Student</option><option>Teacher</option>",
                 client.getMessageBody()
         );
     }

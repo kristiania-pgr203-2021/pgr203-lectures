@@ -3,7 +3,6 @@ package no.kristiania.person;
 import no.kristiania.http.HttpController;
 import no.kristiania.http.HttpMessage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class RoleOptionsController implements HttpController {
@@ -14,7 +13,7 @@ public class RoleOptionsController implements HttpController {
     }
 
     @Override
-    public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
+    public HttpMessage handle(HttpMessage request) throws SQLException {
         String messageContent = "";
         for (String role : roleDao.list()) {
             messageContent += "<option>" + role + "</option>";
