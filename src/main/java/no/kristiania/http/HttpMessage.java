@@ -28,6 +28,11 @@ public class HttpMessage {
         this.messageBody = messageBody;
     }
 
+    public HttpMessage(String startLine) {
+        this.startLine = startLine;
+        headerFields.put("Connection", "close");
+    }
+
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
     }
@@ -75,6 +80,8 @@ public class HttpMessage {
             outputStream.write("\r\n".getBytes());
         }
         outputStream.write("\r\n".getBytes());
-        outputStream.write(messageBody.getBytes());
+        if (messageBody != null) {
+            outputStream.write(messageBody.getBytes());
+        }
     }
 }

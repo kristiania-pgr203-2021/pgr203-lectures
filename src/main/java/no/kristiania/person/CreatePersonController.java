@@ -15,6 +15,6 @@ public class CreatePersonController implements HttpController {
 
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
-        return null;
+        return new HttpMessage("HTTP/1.1 200 OK");
     }
 }
