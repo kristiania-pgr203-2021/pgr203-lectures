@@ -4,7 +4,6 @@ import no.kristiania.http.HttpController;
 import no.kristiania.http.HttpMessage;
 import no.kristiania.http.Person;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class CreatePersonController implements HttpController {
     }
 
     @Override
-    public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
+    public HttpMessage handle(HttpMessage request) throws SQLException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         
         Person person = new Person();
@@ -24,6 +23,6 @@ public class CreatePersonController implements HttpController {
         person.setLastName(queryMap.get("lastName"));
         personDao.save(person);
 
-        return new HttpMessage("HTTP/1.1 200 OK");
+        return new HttpMessage("HTTP/1.1 204 No content");
     }
 }

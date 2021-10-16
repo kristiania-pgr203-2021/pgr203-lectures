@@ -47,7 +47,7 @@ public class PersonnelServerTest {
                 "/api/newPerson",
                 "lastName=Persson&firstName=Test"
         );
-        assertEquals(200, postClient.getStatusCode());
+        assertEquals(204, postClient.getStatusCode());
         
         assertThat(personDao.listAll())
                 .extracting(Person::getLastName)

@@ -1,6 +1,8 @@
 package no.kristiania.person;
 
 import no.kristiania.http.HttpServer;
+import org.flywaydb.core.Flyway;
+import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,11 @@ public class PersonnelServer {
     }
 
     private static DataSource createDataSource() {
-        return null;
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/person_db");
+        dataSource.setUser("person_dbuser");
+        dataSource.setPassword("*****");
+        Flyway.configure().dataSource(dataSource).load().migrate();
+        return dataSource;
     }
 }
