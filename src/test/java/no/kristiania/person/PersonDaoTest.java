@@ -3,13 +3,15 @@ package no.kristiania.person;
 import no.kristiania.http.Person;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonDaoTest {
     private PersonDao dao = new PersonDao(TestData.createDataSource());
     
     @Test
-    void shouldRetrieveSavedPerson() {
+    void shouldRetrieveSavedPerson() throws SQLException {
         Person person = examplePerson();
         dao.save(person);
         assertThat(dao.retrieve(person.getId()))
