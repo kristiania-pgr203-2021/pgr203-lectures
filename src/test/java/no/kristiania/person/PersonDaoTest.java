@@ -3,6 +3,8 @@ package no.kristiania.person;
 import no.kristiania.http.Person;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PersonDaoTest {
     private PersonDao dao = new PersonDao(TestData.createDataSource());
     
@@ -11,8 +13,9 @@ public class PersonDaoTest {
         Person person = examplePerson();
         dao.save(person);
         assertThat(dao.retrieve(person.getId()))
-            // TODO: Easier to write this when PersonDao.retrieve is in place
-        ;
+                .hasNoNullFieldsOrProperties()
+                .usingRecursiveComparison()
+                .isEqualTo(person);
     }
 
     private Person examplePerson() {
