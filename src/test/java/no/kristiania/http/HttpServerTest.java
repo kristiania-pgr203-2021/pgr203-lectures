@@ -60,8 +60,6 @@ class HttpServerTest {
 
     @Test
     void shouldServeFiles() throws IOException {
-        Paths.get("target/test-classes");
-
         String fileContent = "A file created at " + LocalTime.now();
         Files.write(Paths.get("target/test-classes/example-file.txt"), fileContent.getBytes());
         
@@ -72,8 +70,6 @@ class HttpServerTest {
 
     @Test
     void shouldUseFileExtensionForContentType() throws IOException {
-        Paths.get("target/test-classes");
-
         String fileContent = "<p>Hello</p>";
         Files.write(Paths.get("target/test-classes/example-file.html"), fileContent.getBytes());
 

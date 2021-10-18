@@ -125,6 +125,7 @@ public class HttpServer {
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = new HttpServer(1962);
         httpServer.setRoles(List.of("Student", "Teaching assistant", "Teacher"));
+        System.out.println("http://localhost:" + httpServer.getPort() + "/index.html");
     }
 
     public int getPort() {
