@@ -82,14 +82,15 @@ This lecture covers how to structure the code on your server to integrate the HT
 
 ### Lecture 10: Programmer productivity
 
-This lecture reviews how to work effectively with IntelliJ, Github and Maven
+This lecture reviews how to work effectively with IntelliJ, Github and Maven, revising the contents of assignment #1
 
-### Lecture 11: The programming industry
+### Lecture 11: Getting ready for the exam
+
+
+
+### Lecture 12: The programming industry
 
 This guest lecture covers how it is to work as a programmer in the Norwegian IT industry
-
-### Lecture 12: Getting ready for the exam
-
 
 
 
