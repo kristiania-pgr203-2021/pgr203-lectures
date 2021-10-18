@@ -53,3 +53,4 @@ HTTP request ser ut
 * [ ] URL encoding
 * [ ] Update existing data in the database
 * [ ] GET /api/people Should return all people, POST /api/people should create new person 
+* [ ] Generalize AbstractDao.insert
