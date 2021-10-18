@@ -33,9 +33,23 @@ HTTP request ser ut
 
 * [x] styling
 * [x] handle more than one request
-  * [ ] Feilhåndtering
-* [ ] GET requests with more than one field
-* [ ] Refactor -> HttpMessage class
-* [ ] Process POST request from form
-  * [ ] URL encoding
+* [x] GET requests with more than one field
+* [x] Refactor -> HttpMessage class
+* [x] Process POST request from form
+
+
+## Lecture 9:
+
 * [ ] Make executable JAR
+* [ ] Serve HTML fra jar-file
+* [ ] PersonDaoTest legge inn person i database - list
+* [ ] RoleDaoTest legge inn person i database - list
+* [ ] /api-requestTarget => Controllers
+* [ ] password in properties-fil
+
+## Problems left for exam
+
+* [ ] Error handling
+* [ ] URL encoding
+* [ ] Update existing data in the database
+* [ ] GET /api/people Should return all people, POST /api/people should create new person 
