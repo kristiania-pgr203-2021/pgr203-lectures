@@ -20,6 +20,18 @@ public class PersonDaoTest {
                 .isEqualTo(person);
     }
 
+    @Test
+    void shouldListAllPeople() throws SQLException {
+        Person person = examplePerson();
+        dao.save(person);
+        Person anotherPerson = examplePerson();
+        dao.save(anotherPerson);
+        
+        assertThat(dao.listAll())
+                .extracting(Person::getId)
+                .contains(person.getId(), anotherPerson.getId());
+    }
+
     private Person examplePerson() {
         Person person = new Person();
         person.setFirstName(TestData.pickOne("Johannes", "Jane", "Jill", "Jacob", "James"));
