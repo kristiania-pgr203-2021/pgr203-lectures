@@ -40,7 +40,7 @@ HTTP request ser ut
 
 ## Lecture 9:
 
-* [ ] Make executable JAR
+* [x] Make executable JAR
 * [ ] Serve HTML fra jar-file
 * [ ] PersonDaoTest legge inn person i database - list
 * [ ] RoleDaoTest legge inn person i database - list
