@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import no.kristiania.person.Person;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
