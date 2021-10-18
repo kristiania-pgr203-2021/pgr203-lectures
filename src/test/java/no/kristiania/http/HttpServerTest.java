@@ -1,11 +1,14 @@
 package no.kristiania.http;
 
 import no.kristiania.person.Person;
+import no.kristiania.person.RoleDao;
+import no.kristiania.person.TestData;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -79,8 +82,11 @@ class HttpServerTest {
     }
 
     @Test
-    void shouldReturnRolesFromServer() throws IOException {
-        server.setRoles(List.of("Teacher", "Student"));
+    void shouldReturnRolesFromServer() throws IOException, SQLException {
+        RoleDao roleDao = new RoleDao(TestData.testDataSource());
+        roleDao.save("Teacher");
+        roleDao.save("Student");
+        server.setRoleDao(roleDao);
         
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
         assertEquals(
