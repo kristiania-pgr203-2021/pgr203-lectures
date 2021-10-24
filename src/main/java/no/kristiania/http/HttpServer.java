@@ -22,8 +22,6 @@ import java.util.Map;
 import java.util.Properties;
 
 public class HttpServer {
-    
-    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket serverSocket;
     private Map<String, HttpController> controllers = new HashMap<>();
@@ -111,26 +109,6 @@ public class HttpServer {
                 "\r\n" +
                 responseText;
         clientSocket.getOutputStream().write(response.getBytes());
-    }
-
-    public static void main(String[] args) throws IOException {
-        HttpServer httpServer = new HttpServer(1962);
-        new RoleDao(createDataSource());
-        logger.info("Started http://localhost:{}/index.html", httpServer.getPort());
-    }
-
-    private static DataSource createDataSource() throws IOException {
-        Properties properties = new Properties();
-        try (FileReader reader = new FileReader("pgr203.properties")) {
-            properties.load(reader);
-        }
-
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(properties.getProperty("dataSource.url", "jdbc:postgresql://localhost:5432/person_db"));
-        dataSource.setUser(properties.getProperty("dataSource.username", "person_dbuser"));
-        dataSource.setPassword(properties.getProperty("dataSource.password"));
-        Flyway.configure().dataSource(dataSource).load().migrate();
-        return dataSource;
     }
 
     public int getPort() {
