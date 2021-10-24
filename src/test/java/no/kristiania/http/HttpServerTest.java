@@ -2,6 +2,7 @@ package no.kristiania.http;
 
 import no.kristiania.person.Person;
 import no.kristiania.person.PersonDao;
+import no.kristiania.person.PersonDaoTest;
 import no.kristiania.person.RoleDao;
 import no.kristiania.person.TestData;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,10 @@ import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpServerTest {
 
@@ -114,4 +117,20 @@ class HttpServerTest {
         assertEquals("Persson", person.getLastName());
     }
 
+    @Test
+    void shouldListPeople() throws SQLException, IOException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController("/api/people", new ListPeopleController(personDao));
+        
+        Person person1 = PersonDaoTest.examplePerson();
+        Person person2 = PersonDaoTest.examplePerson();
+        personDao.save(person1);
+        personDao.save(person2);
+        
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/people");
+        assertThat(client.getMessageBody())
+                .contains("<div>" + person1.getLastName() + ", " + person1.getFirstName() + "</div>")
+                .contains("<div>" + person2.getLastName() + ", " + person2.getFirstName() + "</div>")
+        ;
+    }
 }
