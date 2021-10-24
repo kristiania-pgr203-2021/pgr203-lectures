@@ -80,12 +80,17 @@ This lecture covers how to structure the code on your server to integrate the HT
 * [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/09) 
 * [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/09)
 
-### Lecture 10: Programmer productivity
+### Lecture 10: The big picture
+
+This lecture covers how to make the HTTP server work indendently and support new requirements through better organization of the code
+
+* [Reference implementation](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/reference/10) 
+* [Commit log from live coding](https://github.com/kristiania-pgr203-2021/pgr203-lectures/commits/lecture/10)
+
+
+### Lecture 11: Programmer productivity
 
 This lecture reviews how to work effectively with IntelliJ, Github and Maven, revising the contents of assignment #1
-
-### Lecture 11: Getting ready for the exam
-
 
 
 ### Lecture 12: The programming industry
