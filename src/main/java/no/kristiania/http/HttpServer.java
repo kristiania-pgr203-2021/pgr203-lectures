@@ -26,8 +26,6 @@ public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket serverSocket;
-    private List<Person> people = new ArrayList<>();
-    private RoleDao roleDao;
     private Map<String, HttpController> controllers = new HashMap<>();
 
     public HttpServer(int serverPort) throws IOException {
@@ -79,22 +77,6 @@ public class HttpServer {
             String responseText = "<p>Hello " + yourName + "</p>";
 
             writeOkResponse(clientSocket, responseText, "text/html");
-        } else if (fileTarget.equals("/api/newPerson")) {
-            Map<String, String> queryMap = HttpMessage.parseRequestParameters(httpMessage.messageBody);
-            Person person = new Person();
-            person.setLastName(queryMap.get("lastName"));
-            people.add(person);
-            writeOkResponse(clientSocket, "it is done", "text/html");
-        } else if (fileTarget.equals("/api/roleOptions")) {
-            String responseText = "";
-
-            int value = 1;
-            for (String role : roleDao.listAll()) {
-                responseText += "<option value=" + (value++) + ">" + role + "</option>";
-            }
-
-
-            writeOkResponse(clientSocket, responseText, "text/html");
         } else {
             InputStream fileResource = getClass().getResourceAsStream(fileTarget);
             if (fileResource != null) {
@@ -133,7 +115,7 @@ public class HttpServer {
 
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = new HttpServer(1962);
-        httpServer.setRoleDao(new RoleDao(createDataSource()));
+        new RoleDao(createDataSource());
         logger.info("Started http://localhost:{}/index.html", httpServer.getPort());
     }
 
@@ -153,14 +135,6 @@ public class HttpServer {
 
     public int getPort() {
         return serverSocket.getLocalPort();
-    }
-
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
-
-    public List<Person> getPeople() {
-        return people;
     }
 
     public void addController(String path, HttpController controller) {
