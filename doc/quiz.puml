@@ -1,0 +1,32 @@
+@startuml
+
+class Question {
+    id
+    title: string
+    description: string
+}
+class Option {
+    id
+    questionId
+    label: string
+}
+Question "1" - "*" Option
+
+class Answer {
+    optionId
+    responseId
+}
+
+Option "1" - "*" Answer
+
+class Response {
+    id
+    username: string
+    date
+}
+
+
+Response "1" -- "*" Answer
+
+
+@enduml

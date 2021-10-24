@@ -1,0 +1,21 @@
+@startuml
+
+actor Browser
+participant HttpServer
+participant AddPersonController
+participant controllers
+participant PersonDao
+database PERSON_DB
+
+Browser --> HttpServer: POST /api/newPerson
+HttpServer -> controllers: get("/api/newPerson")
+HttpServer <-- controllers: AddPersonController
+HttpServer -> AddPersonController: handle
+AddPersonController -> AddPersonController: person = new Person()
+AddPersonController -> AddPersonController: person.setFirstName(req.get("firstName"))
+AddPersonController -> PersonDao: save(person)
+PersonDao -> PERSON_DB: INSERT INTO PEOPLE ...
+Browser <-- HttpServer: 200 OK
+
+
+@enduml
