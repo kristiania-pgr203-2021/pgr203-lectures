@@ -37,35 +37,15 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/non-existing");
         assertEquals("File not found: /non-existing", client.getMessageBody());
     }
-
-    @Test
-    void shouldRespondWith200ForKnownRequestTarget() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/hello");
-        assertAll(
-                () -> assertEquals(200, client.getStatusCode()),
-                () -> assertEquals("text/html", client.getHeader("Content-Type")),
-                () -> assertEquals("<p>Hello world</p>", client.getMessageBody())        
-        );
-    }
-
+    
     @Test
     void shouldHandleMoreThanOneRequest() throws IOException {
-        assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello")
+        assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html")
                 .getStatusCode());
-        assertEquals(200, new HttpClient("localhost", server.getPort(), "/hello")
+        assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html")
                 .getStatusCode());
     }
-
-    @Test
-    void shouldEchoQueryParameter() throws IOException {
-        HttpClient client = new HttpClient(
-                "localhost",
-                server.getPort(), 
-                "/hello?firstName=Test&lastName=Persson"
-        );
-        assertEquals("<p>Hello Persson, Test</p>", client.getMessageBody());
-    }
-
+    
     @Test
     void shouldServeFiles() throws IOException {
         String fileContent = "A file created at " + LocalTime.now();
@@ -113,8 +93,12 @@ class HttpServerTest {
                 "lastName=Persson&firstName=Test"
         );
         assertEquals(200, postClient.getStatusCode());
-        Person person = personDao.listAll().get(0);
-        assertEquals("Persson", person.getLastName());
+        
+        assertThat(personDao.listAll())
+                .anySatisfy(p -> {
+                    assertThat(p.getFirstName()).isEqualTo("Test");
+                    assertThat(p.getLastName()).isEqualTo("Persson");
+                });
     }
 
     @Test
