@@ -50,7 +50,7 @@ HTTP request ser ut
 * [x] Executable jar with dependencies
 * [x] Logging
 * [x] password in properties-fil
-* [ ] /api-requestTarget => Controllers
+* [x] /api-requestTarget => Controllers
 
 
 ## Problems left for exam
