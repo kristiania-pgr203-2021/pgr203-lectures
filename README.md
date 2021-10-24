@@ -48,7 +48,7 @@ HTTP request ser ut
 ## Lecture 10: 
 
 * [x] Executable jar with dependencies
-* [ ] Logging
+* [x] Logging
 * [ ] password in properties-fil
 * [ ] /api-requestTarget => Controllers
 
