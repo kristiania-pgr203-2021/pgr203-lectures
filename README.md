@@ -49,7 +49,7 @@ HTTP request ser ut
 
 * [x] Executable jar with dependencies
 * [x] Logging
-* [ ] password in properties-fil
+* [x] password in properties-fil
 * [ ] /api-requestTarget => Controllers
 
 
