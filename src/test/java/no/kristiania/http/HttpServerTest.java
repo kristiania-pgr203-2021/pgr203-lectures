@@ -1,6 +1,7 @@
 package no.kristiania.http;
 
 import no.kristiania.person.Person;
+import no.kristiania.person.PersonDao;
 import no.kristiania.person.RoleDao;
 import no.kristiania.person.TestData;
 import org.junit.jupiter.api.Test;
@@ -98,7 +99,11 @@ class HttpServerTest {
 
 
     @Test
-    void shouldCreateNewPerson() throws IOException {
+    void shouldCreateNewPerson() throws IOException, SQLException {
+        PersonDao personDao = new PersonDao(TestData.testDataSource());
+        server.addController("/api/newPerson", new CreatePersonController(personDao));
+        
+        
         HttpPostClient postClient = new HttpPostClient(
                 "localhost",
                 server.getPort(),
@@ -106,7 +111,7 @@ class HttpServerTest {
                 "lastName=Persson&firstName=Test"
         );
         assertEquals(200, postClient.getStatusCode());
-        Person person = server.getPeople().get(0);
+        Person person = personDao.listAll().get(0);
         assertEquals("Persson", person.getLastName());
     }
 
