@@ -1,6 +1,5 @@
 package no.kristiania.http;
 
-import no.kristiania.person.Person;
 import no.kristiania.person.RoleDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -15,9 +14,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -26,8 +23,7 @@ public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket serverSocket;
-    private List<Person> people = new ArrayList<>();
-    private HashMap<String, HttpController> controllers = new HashMap<>();
+    private final HashMap<String, HttpController> controllers = new HashMap<>();
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -78,12 +74,6 @@ public class HttpServer {
             String responseText = "<p>Hello " + yourName + "</p>";
 
             writeOkResponse(clientSocket, responseText, "text/html");
-        } else if (fileTarget.equals("/api/newPerson")) {
-            Map<String, String> queryMap = HttpMessage.parseRequestParameters(httpMessage.messageBody);
-            Person person = new Person();
-            person.setLastName(queryMap.get("lastName"));
-            people.add(person);
-            writeOkResponse(clientSocket, "it is done", "text/html");
         } else {
             InputStream fileResource = getClass().getResourceAsStream(fileTarget);
             if (fileResource != null) {
@@ -145,10 +135,6 @@ public class HttpServer {
 
     public int getPort() {
         return serverSocket.getLocalPort();
-    }
-
-    public List<Person> getPeople() {
-        return people;
     }
 
     public void addController(String path, HttpController controller) {
