@@ -47,7 +47,7 @@ HTTP request ser ut
 
 ## Lecture 10
 
-* [ ] Uberjar - megajar
+* [x] Uberjar - megajar
 * [ ] Logging
 * [ ] password in properties-fil
 * [ ] /api-requestTarget => Controllers
