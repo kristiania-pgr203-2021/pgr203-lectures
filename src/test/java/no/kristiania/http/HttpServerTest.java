@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,7 +85,6 @@ class HttpServerTest {
         RoleDao roleDao = new RoleDao(TestData.testDataSource());
         roleDao.save("Teacher");
         roleDao.save("Student");
-        server.setRoleDao(roleDao);
         server.addController("/api/roleOptions", new RoleOptionsController(roleDao));
         
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
