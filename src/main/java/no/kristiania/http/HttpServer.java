@@ -1,15 +1,6 @@
 package no.kristiania.http;
 
-import no.kristiania.person.PersonDao;
-import no.kristiania.person.RoleDao;
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -17,11 +8,8 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class HttpServer {
-    
-    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpController> controllers = new HashMap<>();
@@ -109,33 +97,6 @@ public class HttpServer {
                 "\r\n" +
                 responseText;
         clientSocket.getOutputStream().write(response.getBytes());
-    }
-
-    public static void main(String[] args) throws IOException {
-        DataSource dataSource = createDataSource();
-        RoleDao roleDao = new RoleDao(dataSource);
-        PersonDao personDao = new PersonDao(dataSource);
-        HttpServer httpServer = new HttpServer(1962);
-        httpServer.addController("/api/roleOptions", new RoleOptionsController(roleDao));
-        httpServer.addController("/api/newPerson", new AddPersonController(personDao));
-        logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
-    }
-
-    private static DataSource createDataSource() throws IOException {
-        Properties properties = new Properties();
-        try (FileReader reader = new FileReader("pgr203.properties")) {
-            properties.load(reader);
-        }
-        
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(properties.getProperty(
-                "dataSource.url", 
-                "jdbc:postgresql://localhost:5432/person_db"
-        ));
-        dataSource.setUser(properties.getProperty("dataSource.user", "person_dbuser"));
-        dataSource.setPassword(properties.getProperty("dataSource.password"));
-        Flyway.configure().dataSource(dataSource).load().migrate();
-        return dataSource;
     }
 
     public int getPort() {
