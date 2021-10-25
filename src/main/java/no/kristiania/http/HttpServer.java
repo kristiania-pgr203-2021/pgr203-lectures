@@ -72,14 +72,14 @@ public class HttpServer {
         if (fileTarget.equals("/hello")) {
             String yourName = "world";
             if (query != null) {
-                Map<String, String> queryMap = parseRequestParameters(query);
+                Map<String, String> queryMap = HttpMessage.parseRequestParameters(query);
                 yourName = queryMap.get("lastName") + ", " + queryMap.get("firstName");
             }
             String responseText = "<p>Hello " + yourName + "</p>";
 
             writeOkResponse(clientSocket, responseText, "text/html");
         } else if (fileTarget.equals("/api/newPerson")) {
-            Map<String, String> queryMap = parseRequestParameters(httpMessage.messageBody);
+            Map<String, String> queryMap = HttpMessage.parseRequestParameters(httpMessage.messageBody);
             Person person = new Person();
             person.setLastName(queryMap.get("lastName"));
             people.add(person);
@@ -108,17 +108,6 @@ public class HttpServer {
                     responseText;
             clientSocket.getOutputStream().write(response.getBytes());
         }
-    }
-
-    private Map<String, String> parseRequestParameters(String query) {
-        Map<String, String> queryMap = new HashMap<>();
-        for (String queryParameter : query.split("&")) {
-            int equalsPos = queryParameter.indexOf('=');
-            String parameterName = queryParameter.substring(0, equalsPos);
-            String parameterValue = queryParameter.substring(equalsPos+1);
-            queryMap.put(parameterName, parameterValue);
-        }
-        return queryMap;
     }
 
     private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
