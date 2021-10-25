@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List people</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+    <h1>List people</h1>
+
+    <div id="people"></div>
+    
+</main>
+</body>
+<script>
+    fetch("/api/people").then(function (res) {
+        return res.text();
+    }).then(function(text) {
+        document.getElementById("people").innerHTML = text;
+    })
+</script>
+</html>

@@ -22,6 +22,7 @@ public class PersonnelServer {
         HttpServer httpServer = new HttpServer(1962);
         httpServer.addController("/api/roleOptions", new RoleOptionsController(roleDao));
         httpServer.addController("/api/newPerson", new AddPersonController(personDao));
+        httpServer.addController("/api/people", new ListPeopleController(personDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 

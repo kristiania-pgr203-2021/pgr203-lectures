@@ -69,6 +69,8 @@ public class HttpServer {
                 String contentType = "text/plain";
                 if (requestTarget.endsWith(".html")) {
                     contentType = "text/html";
+                } else if (requestTarget.endsWith(".css")) {
+                    contentType = "text/css";
                 }
                 writeOkResponse(clientSocket, responseText, contentType);
                 return;
