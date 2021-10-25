@@ -50,11 +50,7 @@ public class HttpServer {
         if (controllers.containsKey(fileTarget)) {
             HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
             response.write(clientSocket);
-            return;
-        }
-        
-        
-        if (fileTarget.equals("/hello")) {
+        } else if (fileTarget.equals("/hello")) {
             String yourName = "world";
             if (query != null) {
                 Map<String, String> queryMap = HttpMessage.parseRequestParameters(query);
