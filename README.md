@@ -49,7 +49,7 @@ HTTP request ser ut
 
 * [x] Uberjar - megajar
 * [x] Logging
-* [ ] password in properties-fil
+* [x] password in properties-fil
 * [ ] /api-requestTarget => Controllers
 
 
