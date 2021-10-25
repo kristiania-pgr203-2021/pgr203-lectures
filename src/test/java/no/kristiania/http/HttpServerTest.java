@@ -86,7 +86,7 @@ class HttpServerTest {
         RoleDao roleDao = new RoleDao(TestData.testDataSource());
         roleDao.save("Teacher");
         roleDao.save("Student");
-        server.setRoleDao(roleDao);
+        server.addController("/api/roleOptions", new RoleOptionsController(roleDao));
         
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/roleOptions");
         assertEquals(
