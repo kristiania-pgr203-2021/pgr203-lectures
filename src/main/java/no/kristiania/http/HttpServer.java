@@ -30,6 +30,7 @@ public class HttpServer {
     private final ServerSocket serverSocket;
     private List<Person> people = new ArrayList<>();
     private RoleDao roleDao;
+    private HashMap<String, HttpController> controllers = new HashMap<>();
 
     public HttpServer(int serverPort) throws IOException {
         serverSocket = new ServerSocket(serverPort);
@@ -64,6 +65,13 @@ public class HttpServer {
             fileTarget = requestTarget;
         }
 
+        if (controllers.containsKey(fileTarget)) {
+            HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
+            response.write(clientSocket);
+            return;
+        }
+        
+        
         if (fileTarget.equals("/hello")) {
             String yourName = "world";
             if (query != null) {
@@ -172,6 +180,6 @@ public class HttpServer {
     }
 
     public void addController(String path, HttpController controller) {
-        
+        controllers.put(path, controller);
     }
 }
