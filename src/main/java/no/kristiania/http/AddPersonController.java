@@ -17,6 +17,7 @@ public class AddPersonController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Person person = new Person();
+        person.setFirstName(queryMap.get("firstName"));
         person.setLastName(queryMap.get("lastName"));
         personDao.save(person);
         
