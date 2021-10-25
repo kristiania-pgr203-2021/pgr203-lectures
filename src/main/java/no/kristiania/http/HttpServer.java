@@ -170,4 +170,8 @@ public class HttpServer {
     public List<Person> getPeople() {
         return people;
     }
+
+    public void addController(String path, HttpController controller) {
+        
+    }
 }
