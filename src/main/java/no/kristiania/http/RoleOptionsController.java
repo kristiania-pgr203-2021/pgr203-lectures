@@ -8,6 +8,6 @@ public class RoleOptionsController implements HttpController {
 
     @Override
     public HttpMessage handle(HttpMessage request) {
-        return null;
+        return new HttpMessage("HTTP/1.1 200 OK", "It is done");
     }
 }

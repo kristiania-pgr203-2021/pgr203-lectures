@@ -18,6 +18,11 @@ public class HttpMessage {
         }
     }
     
+    public HttpMessage(String startLine, String messageBody) {
+        this.startLine = startLine;
+        this.messageBody = messageBody;
+    }
+    
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
     }
