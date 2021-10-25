@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import no.kristiania.person.PersonDao;
 import no.kristiania.person.RoleDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -111,8 +112,12 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
+        DataSource dataSource = createDataSource();
+        RoleDao roleDao = new RoleDao(dataSource);
+        PersonDao personDao = new PersonDao(dataSource);
         HttpServer httpServer = new HttpServer(1962);
-        new RoleDao(createDataSource());
+        httpServer.addController("/api/roleOptions", new RoleOptionsController(roleDao));
+        httpServer.addController("/api/newPerson", new AddPersonController(personDao));
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 
