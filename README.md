@@ -44,8 +44,14 @@ HTTP request ser ut
 * [x] Serve HTML fra jar-file
 * [x] RoleDaoTest legge inn person i database - list
 * [x] PersonDaoTest legge inn person i database - list
-* [ ] /api-requestTarget => Controllers
+
+## Lecture 10
+
+* [ ] Uberjar - megajar
+* [ ] Logging
 * [ ] password in properties-fil
+* [ ] /api-requestTarget => Controllers
+
 
 ## Problems left for exam
 
