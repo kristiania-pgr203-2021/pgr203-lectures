@@ -1,25 +1,13 @@
 package no.kristiania.http;
 
-import no.kristiania.person.Person;
-import no.kristiania.person.RoleDao;
-import org.flywaydb.core.Flyway;
-import org.postgresql.ds.PGSimpleDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public class HttpServer {
 
@@ -69,15 +57,22 @@ public class HttpServer {
         if (fileResource != null) {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             fileResource.transferTo(buffer);
-            String responseText = buffer.toString();
 
             String contentType = "text/plain";
             if (requestTarget.endsWith(".html")) {
                 contentType = "text/html";
             } else if (requestTarget.endsWith(".css")) {
                 contentType = "text/css";
+            } else if (requestTarget.endsWith(".ico")) {
+                contentType = "image/vnd.microsoft.icon";
             }
-            writeOkResponse(clientSocket, responseText, contentType);
+            String response = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Length: " + buffer.toByteArray().length + "\r\n" +
+                    "Content-Type: " + contentType + "\r\n" +
+                    "Connection: close\r\n" +
+                    "\r\n";
+            clientSocket.getOutputStream().write(response.getBytes());
+            clientSocket.getOutputStream().write(buffer.toByteArray());
             return;
         }
         
@@ -85,16 +80,6 @@ public class HttpServer {
 
         String response = "HTTP/1.1 404 Not found\r\n" +
                 "Content-Length: " + responseText.length() + "\r\n" +
-                "Connection: close\r\n" +
-                "\r\n" +
-                responseText;
-        clientSocket.getOutputStream().write(response.getBytes());
-    }
-
-    private void writeOkResponse(Socket clientSocket, String responseText, String contentType) throws IOException {
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + responseText.length() + "\r\n" +
-                "Content-Type: " + contentType + "\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
                 responseText;
